@@ -19,6 +19,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -155,4 +159,14 @@ fun relativeTime(millis: Long, now: Long = System.currentTimeMillis()): String {
         minutes < 48 * 60 -> "вчера"
         else -> Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).format(shortDate)
     }
+}
+
+/** Star used for "Зачувај за подоцна": filled when the article is saved. */
+@Composable
+fun SavedIcon(saved: Boolean, tint: Color) {
+    Icon(
+        if (saved) Icons.Filled.Star else Icons.Outlined.Star,
+        contentDescription = if (saved) "Отстрани од зачувани" else "Зачувај за подоцна",
+        tint = tint,
+    )
 }

@@ -23,10 +23,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -44,7 +44,12 @@ import mk.vesti.core.Article
 import mk.vesti.core.Story
 
 @Composable
-fun StoryScreen(story: Story, onBack: () -> Unit) {
+fun StoryScreen(
+    story: Story,
+    savedLinks: Set<String>,
+    onToggleSaved: (Article) -> Unit,
+    onBack: () -> Unit,
+) {
     val context = LocalContext.current
     val open = { a: Article -> context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(a.link))) }
     val share = {
@@ -57,7 +62,15 @@ fun StoryScreen(story: Story, onBack: () -> Unit) {
             contentPadding = PaddingValues(bottom = 32.dp),
             modifier = Modifier.fillMaxSize().navigationBarsPadding(),
         ) {
-            item { Hero(story, onBack, share) }
+            item {
+                Hero(
+                    story = story,
+                    saved = story.lead.link in savedLinks,
+                    onBack = onBack,
+                    onToggleSaved = { onToggleSaved(story.lead) },
+                    onShare = share,
+                )
+            }
             item {
                 Column(Modifier.padding(20.dp)) {
                     CategoryPill(story.category)
@@ -80,14 +93,20 @@ fun StoryScreen(story: Story, onBack: () -> Unit) {
                 }
             }
             items(story.articles.sortedByDescending { it.publishedAt }, key = { it.link }) { a ->
-                SourceCard(a, onClick = { open(a) })
+                SourceCard(a, saved = a.link in savedLinks, onToggleSaved = { onToggleSaved(a) }, onClick = { open(a) })
             }
         }
     }
 }
 
 @Composable
-private fun Hero(story: Story, onBack: () -> Unit, onShare: () -> Unit) {
+private fun Hero(
+    story: Story,
+    saved: Boolean,
+    onBack: () -> Unit,
+    onToggleSaved: () -> Unit,
+    onShare: () -> Unit,
+) {
     Box(Modifier.fillMaxWidth().height(300.dp)) {
         NewsImage(story.lead.imageUrl, Modifier.fillMaxSize())
         Box(
@@ -110,15 +129,20 @@ private fun Hero(story: Story, onBack: () -> Unit, onShare: () -> Unit) {
             FilledTonalIconButton(onClick = onBack, colors = glass) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Назад")
             }
-            FilledTonalIconButton(onClick = onShare, colors = glass) {
-                Icon(Icons.Filled.Share, contentDescription = "Сподели")
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FilledTonalIconButton(onClick = onToggleSaved, colors = glass) {
+                    SavedIcon(saved, tint = if (saved) MaterialTheme.colorScheme.tertiary else Color.White)
+                }
+                FilledTonalIconButton(onClick = onShare, colors = glass) {
+                    Icon(Icons.Filled.Share, contentDescription = "Сподели")
+                }
             }
         }
     }
 }
 
 @Composable
-private fun SourceCard(article: Article, onClick: () -> Unit) {
+private fun SourceCard(article: Article, saved: Boolean, onToggleSaved: () -> Unit, onClick: () -> Unit) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainerLow,
         shape = MaterialTheme.shapes.medium,
@@ -154,11 +178,9 @@ private fun SourceCard(article: Article, onClick: () -> Unit) {
                     overflow = TextOverflow.Ellipsis,
                 )
             }
-            Icon(
-                Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+            IconButton(onClick = onToggleSaved) {
+                SavedIcon(saved, tint = if (saved) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+            }
         }
     }
 }

@@ -22,7 +22,13 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalIconButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -46,9 +52,11 @@ import mk.vesti.core.Story
 @Composable
 fun FeedScreen(
     state: NewsUiState,
+    savedCount: Int,
     onRefresh: () -> Unit,
     onTab: (FeedTab) -> Unit,
     onOpen: (Story) -> Unit,
+    onOpenSaved: () -> Unit,
 ) {
     val stories = state.visibleStories
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
@@ -61,8 +69,9 @@ fun FeedScreen(
                 contentPadding = PaddingValues(bottom = 24.dp),
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
-                item { Header() }
+                item { Header(savedCount, onOpenSaved) }
                 stickyHeader { TabChips(state.tab, onTab) }
+                if (state.offline) item { OfflineBanner() }
 
                 when {
                     state.loading && state.stories.isEmpty() -> item { SkeletonFeed() }
@@ -90,15 +99,43 @@ fun FeedScreen(
 }
 
 @Composable
-private fun Header() {
-    Column(Modifier.padding(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 8.dp)) {
-        Text(
-            todayLabel(),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary,
-        )
-        Text("Вести", style = MaterialTheme.typography.displaySmall)
+private fun Header(savedCount: Int, onOpenSaved: () -> Unit) {
+    Row(
+        Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp, top = 16.dp, bottom = 8.dp),
+        verticalAlignment = Alignment.Bottom,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(
+                todayLabel(),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            Text("Вести", style = MaterialTheme.typography.displaySmall)
+        }
+        BadgedBox(
+            badge = { if (savedCount > 0) Badge { Text("$savedCount") } },
+            modifier = Modifier.padding(bottom = 6.dp),
+        ) {
+            FilledTonalIconButton(onClick = onOpenSaved) {
+                Icon(Icons.Outlined.Star, contentDescription = "Зачувани")
+            }
+        }
     }
+}
+
+@Composable
+private fun OfflineBanner() {
+    Text(
+        "Нема интернет. Ги гледаш последните вчитани вести.",
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier
+            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.small)
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+            .padding(12.dp),
+    )
 }
 
 @Composable

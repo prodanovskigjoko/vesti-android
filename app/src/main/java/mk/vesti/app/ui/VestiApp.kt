@@ -10,27 +10,51 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun VestiApp(vm: NewsViewModel = viewModel()) {
+fun VestiApp(vm: NewsViewModel) {
     val state by vm.state.collectAsStateWithLifecycle()
+    val saved by vm.saved.collectAsStateWithLifecycle()
+    val savedLinks = saved.map { it.link }.toSet()
+
+    BackHandler(enabled = state.backStack.isNotEmpty()) { vm.back() }
     AnimatedContent(
-        targetState = state.openStory,
+        targetState = state.screen,
         transitionSpec = {
-            if (targetState != null) {
+            if (targetState != Screen.Feed) {
                 (slideInHorizontally { it / 3 } + fadeIn()) togetherWith fadeOut()
             } else {
                 fadeIn() togetherWith (slideOutHorizontally { it / 3 } + fadeOut())
             }
         },
         label = "screen",
-    ) { story ->
-        if (story != null) {
-            BackHandler { vm.openStory(null) }
-            StoryScreen(story, onBack = { vm.openStory(null) })
-        } else {
-            FeedScreen(state, vm::refresh, vm::selectTab, vm::openStory)
+    ) { screen ->
+        when (screen) {
+            Screen.Feed -> FeedScreen(
+                state = state,
+                savedCount = saved.size,
+                onRefresh = { vm.refresh() },
+                onTab = vm::selectTab,
+                onOpen = { vm.open(Screen.StoryDetail(it)) },
+                onOpenSaved = { vm.open(Screen.Saved) },
+            )
+            is Screen.StoryDetail -> StoryScreen(
+                story = screen.story,
+                savedLinks = savedLinks,
+                onToggleSaved = vm::toggleSaved,
+                onBack = vm::back,
+            )
+            Screen.Saved -> SavedScreen(
+                articles = saved,
+                onOpen = { vm.open(Screen.Reader(it)) },
+                onRemove = vm::toggleSaved,
+                onBack = vm::back,
+            )
+            is Screen.Reader -> ReaderScreen(
+                article = screen.article,
+                loadOffline = { vm.savedRepository.offlinePage(it) },
+                onBack = vm::back,
+            )
         }
     }
 }
