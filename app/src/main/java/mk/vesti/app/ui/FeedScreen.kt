@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -39,7 +40,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import mk.vesti.app.ui.theme.accent
-import mk.vesti.core.Category
 import mk.vesti.core.Story
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -47,7 +47,7 @@ import mk.vesti.core.Story
 fun FeedScreen(
     state: NewsUiState,
     onRefresh: () -> Unit,
-    onCategory: (Category?) -> Unit,
+    onTab: (FeedTab) -> Unit,
     onOpen: (Story) -> Unit,
 ) {
     val stories = state.visibleStories
@@ -62,7 +62,7 @@ fun FeedScreen(
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
                 item { Header() }
-                stickyHeader { CategoryChips(state.category, onCategory) }
+                stickyHeader { TabChips(state.tab, onTab) }
 
                 when {
                     state.loading && state.stories.isEmpty() -> item { SkeletonFeed() }
@@ -102,27 +102,33 @@ private fun Header() {
 }
 
 @Composable
-private fun CategoryChips(selected: Category?, onSelect: (Category?) -> Unit) {
-    val options = listOf<Category?>(null) + Category.entries
+private fun TabChips(selected: FeedTab, onSelect: (FeedTab) -> Unit) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background),
     ) {
-        items(options) { c ->
-            val accent = c?.accent() ?: MaterialTheme.colorScheme.onSurface
+        items(FeedTab.all) { tab ->
+            val section = tab as? FeedTab.Section
+            val accent = section?.category?.accent() ?: MaterialTheme.colorScheme.onSurface
             FilterChip(
-                selected = c == selected,
-                onClick = { onSelect(c) },
-                label = { Text(c?.label ?: "Сите") },
+                selected = tab == selected,
+                onClick = { onSelect(tab) },
+                label = { Text(tab.label) },
+                // A red "live" dot marks the newest-first feed.
+                leadingIcon = if (tab == FeedTab.Latest) {
+                    { Box(Modifier.size(8.dp).clip(CircleShape).background(MaterialTheme.colorScheme.primary)) }
+                } else {
+                    null
+                },
                 shape = MaterialTheme.shapes.large,
                 colors = FilterChipDefaults.filterChipColors(
                     selectedContainerColor = accent,
-                    selectedLabelColor = if (c == null) MaterialTheme.colorScheme.surface else Color.White,
+                    selectedLabelColor = if (section == null) MaterialTheme.colorScheme.surface else Color.White,
                 ),
                 border = FilterChipDefaults.filterChipBorder(
                     enabled = true,
-                    selected = c == selected,
+                    selected = tab == selected,
                     borderColor = MaterialTheme.colorScheme.outlineVariant,
                 ),
             )

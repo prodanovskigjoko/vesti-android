@@ -10,17 +10,41 @@ import mk.vesti.app.data.NewsRepository
 import mk.vesti.core.Category
 import mk.vesti.core.Story
 
+/** The chips above the feed: the ranked front page, newest first, or one category. */
+sealed interface FeedTab {
+    val label: String
+
+    data object Top : FeedTab {
+        override val label = "Сите"
+    }
+
+    data object Latest : FeedTab {
+        override val label = "Најнови вести"
+    }
+
+    data class Section(val category: Category) : FeedTab {
+        override val label = category.label
+    }
+
+    companion object {
+        val all: List<FeedTab> = listOf(Top, Latest) + Category.entries.map(::Section)
+    }
+}
+
 data class NewsUiState(
     val loading: Boolean = false,
     val stories: List<Story> = emptyList(),
-    /** null shows every category, like time.mk's front page. */
-    val category: Category? = null,
+    val tab: FeedTab = FeedTab.Top,
     val openStory: Story? = null,
     val failedSources: List<String> = emptyList(),
     val error: String? = null,
 ) {
     val visibleStories: List<Story>
-        get() = if (category == null) stories else stories.filter { it.category == category }
+        get() = when (tab) {
+            FeedTab.Top -> stories
+            FeedTab.Latest -> stories.sortedByDescending { it.latestAt }
+            is FeedTab.Section -> stories.filter { it.category == tab.category }
+        }
 }
 
 class NewsViewModel(private val repository: NewsRepository = NewsRepository()) : ViewModel() {
@@ -50,7 +74,7 @@ class NewsViewModel(private val repository: NewsRepository = NewsRepository()) :
         }
     }
 
-    fun selectCategory(category: Category?) = _state.update { it.copy(category = category) }
+    fun selectTab(tab: FeedTab) = _state.update { it.copy(tab = tab) }
 
     fun openStory(story: Story?) = _state.update { it.copy(openStory = story) }
 }

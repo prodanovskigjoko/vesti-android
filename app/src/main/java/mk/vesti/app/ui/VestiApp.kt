@@ -30,7 +30,7 @@ fun VestiApp(vm: NewsViewModel = viewModel()) {
             BackHandler { vm.openStory(null) }
             StoryScreen(story, onBack = { vm.openStory(null) })
         } else {
-            FeedScreen(state, vm::refresh, vm::selectCategory, vm::openStory)
+            FeedScreen(state, vm::refresh, vm::selectTab, vm::openStory)
         }
     }
 }
