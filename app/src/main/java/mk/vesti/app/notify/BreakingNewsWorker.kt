@@ -63,6 +63,7 @@ class BreakingNewsWorker(context: Context, params: WorkerParameters) : Coroutine
         )
         val notification = NotificationCompat.Builder(ctx, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
+            .setColor(ContextCompat.getColor(ctx, R.color.ic_launcher_background))
             .setContentTitle(story.lead.title)
             .setContentText("Пишуваат ${story.sourceCount} медиуми · ${story.category.label}")
             .setStyle(NotificationCompat.BigTextStyle().bigText(story.lead.summary.ifBlank { story.lead.title }))
