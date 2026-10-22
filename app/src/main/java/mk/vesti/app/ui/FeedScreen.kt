@@ -26,12 +26,14 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -66,6 +68,7 @@ fun FeedScreen(
     onTab: (FeedTab) -> Unit,
     onOpen: (Story) -> Unit,
     onOpenFavorites: () -> Unit,
+    onOpenAbout: () -> Unit,
     onLoadMore: () -> Unit,
     /** Hoisted so the scroll position survives opening a story and coming back. */
     listState: LazyListState = rememberLazyListState(),
@@ -94,7 +97,7 @@ fun FeedScreen(
                 contentPadding = PaddingValues(bottom = 24.dp),
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
-                item { Header(favoriteCount, onOpenFavorites) }
+                item { Header(favoriteCount, onOpenFavorites, onOpenAbout) }
                 item { WidgetsRow(state.widgets) }
                 stickyHeader {
                     TabChips(state.tab) { tab ->
@@ -137,7 +140,7 @@ fun FeedScreen(
 }
 
 @Composable
-private fun Header(favoriteCount: Int, onOpenFavorites: () -> Unit) {
+private fun Header(favoriteCount: Int, onOpenFavorites: () -> Unit, onOpenAbout: () -> Unit) {
     Row(
         Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp, top = 16.dp, bottom = 8.dp),
         verticalAlignment = Alignment.Bottom,
@@ -149,6 +152,9 @@ private fun Header(favoriteCount: Int, onOpenFavorites: () -> Unit) {
                 color = MaterialTheme.colorScheme.primary,
             )
             Text("Вести", style = MaterialTheme.typography.displaySmall)
+        }
+        IconButton(onClick = onOpenAbout, modifier = Modifier.padding(bottom = 6.dp)) {
+            Icon(Icons.Outlined.Info, contentDescription = "За апликацијата")
         }
         BadgedBox(
             badge = { if (favoriteCount > 0) Badge { Text("$favoriteCount") } },

@@ -39,6 +39,8 @@ sealed interface Screen {
     data object Feed : Screen
     data class StoryDetail(val story: Story) : Screen
     data object Favorites : Screen
+    data object About : Screen
+    data class Legal(val document: LegalDocument) : Screen
 }
 
 data class NewsUiState(

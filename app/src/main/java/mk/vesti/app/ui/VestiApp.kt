@@ -38,6 +38,7 @@ fun VestiApp(vm: NewsViewModel) {
                 onTab = vm::selectTab,
                 onOpen = { vm.open(Screen.StoryDetail(it)) },
                 onOpenFavorites = { vm.open(Screen.Favorites) },
+                onOpenAbout = { vm.open(Screen.About) },
                 onLoadMore = vm::loadMore,
                 listState = feedListState,
             )
@@ -54,6 +55,8 @@ fun VestiApp(vm: NewsViewModel) {
                 onOpenStory = { vm.open(Screen.StoryDetail(it)) },
                 onBack = vm::back,
             )
+            Screen.About -> AboutScreen(onOpen = { vm.open(Screen.Legal(it)) }, onBack = vm::back)
+            is Screen.Legal -> LegalScreen(screen.document, onBack = vm::back)
         }
     }
 }
