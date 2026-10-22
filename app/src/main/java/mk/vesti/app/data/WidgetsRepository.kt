@@ -13,23 +13,9 @@ data class Weather(val city: String, val temperature: Int, val min: Int, val max
 /** Denars for one unit of [currency]. */
 data class Rate(val currency: String, val denars: Double)
 
-data class Match(
-    val league: String,
-    val home: String,
-    val away: String,
-    val homeScore: Int?,
-    val awayScore: Int?,
-    /** "67'", "ПП" (half time), "КРАЈ", or a kick-off time like "20:45". */
-    val status: String,
-    val live: Boolean,
-)
-
 data class Widgets(
     val weather: Weather? = null,
     val rates: List<Rate> = emptyList(),
-    val matches: List<Match> = emptyList(),
-    /** True while [matches] are sample data because no live-score provider is configured. */
-    val sportIsDemo: Boolean = true,
 )
 
 /** Data for the cards above the feed. Each card loads on its own, so one failing service hides only its card. */
@@ -39,7 +25,7 @@ class WidgetsRepository(private val client: OkHttpClient = Http.client) {
         coroutineScope {
             val weather = async { runCatching { weather() }.getOrNull() }
             val rates = async { runCatching { rates() }.getOrDefault(emptyList()) }
-            Widgets(weather = weather.await(), rates = rates.await(), matches = DemoMatches, sportIsDemo = true)
+            Widgets(weather = weather.await(), rates = rates.await())
         }
     }
 
@@ -73,15 +59,6 @@ class WidgetsRepository(private val client: OkHttpClient = Http.client) {
             check(response.isSuccessful) { "HTTP ${response.code}" }
             return JSONObject(response.body!!.string())
         }
-    }
-
-    private companion object {
-        // Live scores need a paid or keyed provider (e.g. API-Football); until one is chosen the card shows these.
-        val DemoMatches = listOf(
-            Match("Прва МФЛ", "Вардар", "Шкупи", 2, 1, "67'", live = true),
-            Match("Прва МФЛ", "Работнички", "Струга", 0, 0, "ПП", live = true),
-            Match("Лига на шампиони", "Реал Мадрид", "Барселона", null, null, "21:00", live = false),
-        )
     }
 }
 
