@@ -95,6 +95,7 @@ fun FeedScreen(
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
                 item { Header(favoriteCount, onOpenFavorites) }
+                item { WidgetsRow(state.widgets) }
                 stickyHeader {
                     TabChips(state.tab) { tab ->
                         onTab(tab)

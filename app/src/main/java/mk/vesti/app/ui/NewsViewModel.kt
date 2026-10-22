@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import mk.vesti.app.data.NewsRepository
 import mk.vesti.app.data.FavoritesRepository
+import mk.vesti.app.data.Widgets
+import mk.vesti.app.data.WidgetsRepository
 import mk.vesti.core.Category
 import mk.vesti.core.Story
 
@@ -51,6 +53,7 @@ data class NewsUiState(
     val offline: Boolean = false,
     val failedSources: List<String> = emptyList(),
     val error: String? = null,
+    val widgets: Widgets = Widgets(),
 ) {
     val screen: Screen get() = backStack.lastOrNull() ?: Screen.Feed
 
@@ -74,6 +77,7 @@ data class NewsUiState(
 class NewsViewModel(app: Application) : AndroidViewModel(app) {
     private val repository = NewsRepository(app)
     private val favoritesRepository = FavoritesRepository(app)
+    private val widgetsRepository = WidgetsRepository()
     val favorites: StateFlow<Set<String>> = favoritesRepository.sources
 
     private val _state = MutableStateFlow(NewsUiState(loading = true))
@@ -93,6 +97,10 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
     fun refresh(force: Boolean = false) {
         if (_state.value.loading && !force) return
         _state.update { it.copy(loading = true, error = null) }
+        viewModelScope.launch {
+            val widgets = widgetsRepository.load()
+            _state.update { it.copy(widgets = widgets) }
+        }
         viewModelScope.launch {
             runCatching { repository.load() }
                 .onSuccess { r ->
