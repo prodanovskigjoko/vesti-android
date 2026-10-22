@@ -34,3 +34,20 @@
 
 - Користиме само RSS фидови од самите медиуми, не содржина од time.mk.
 - Дел од URL-ата во `Sources.kt` не се проверени од уред; фид што не работи само се прескокнува.
+
+## Објавување на Play Store
+
+1. **Клуч за потпишување** (еднаш): Android Studio → Build → Generate Signed App Bundle → Create new.
+   Чувај го `.jks` фајлот и лозинките на сигурно место, без нив нема ажурирања.
+2. Во коренот на проектот направи `keystore.properties` (не оди на GitHub):
+   ```
+   storeFile=/целосна/патека/vesti-upload.jks
+   storePassword=...
+   keyAlias=upload
+   keyPassword=...
+   ```
+3. `./gradlew :app:bundleRelease` → `app/build/outputs/bundle/release/app-release.aab`.
+   Пред секое ново издание зголеми `versionCode` во `app/build.gradle.kts`.
+4. Политика и услови на јавен линк: GitHub → Settings → Pages → Branch `main`, папка `/docs`.
+   Линкови: `https://prodanovskigjoko.github.io/vesti-android/privacy.html` и `.../terms.html`.
+   По промена на `LegalTexts.kt` изврши `python3 tools/legal_pages.py` за да се обноват страниците.
