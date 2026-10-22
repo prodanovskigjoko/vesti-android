@@ -15,7 +15,7 @@ data class LegalDocument(val title: String, val effective: String, val blocks: L
 
 private const val NAME = "[Име и презиме]"
 private const val CITY = "[град]"
-private const val EMAIL = "[е-пошта за контакт]"
+private const val EMAIL = "vestivestimk@gmail.com"
 private const val EFFECTIVE = "22 октомври 2026"
 
 val PrivacyPolicy = LegalDocument(
