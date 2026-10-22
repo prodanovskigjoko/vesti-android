@@ -43,6 +43,8 @@ data class NewsUiState(
     val loading: Boolean = false,
     val stories: List<Story> = emptyList(),
     val tab: FeedTab = FeedTab.Top,
+    /** How many stories of the current tab are shown; grows by [PAGE_SIZE] as the reader scrolls. */
+    val shownCount: Int = PAGE_SIZE,
     /** Screens opened on top of the feed; the last one is visible. */
     val backStack: List<Screen> = emptyList(),
     /** True while showing stories from the cache because the last refresh got nothing. */
@@ -52,12 +54,21 @@ data class NewsUiState(
 ) {
     val screen: Screen get() = backStack.lastOrNull() ?: Screen.Feed
 
-    val visibleStories: List<Story>
-        get() = when (tab) {
+    private val tabStories: List<Story> by lazy {
+        when (tab) {
             FeedTab.Top -> stories
             FeedTab.Latest -> stories.sortedByDescending { it.latestAt }
             is FeedTab.Section -> stories.filter { it.category == tab.category }
         }
+    }
+
+    val visibleStories: List<Story> get() = tabStories.take(shownCount)
+
+    val hasMore: Boolean get() = tabStories.size > shownCount
+
+    companion object {
+        const val PAGE_SIZE = 20
+    }
 }
 
 class NewsViewModel(app: Application) : AndroidViewModel(app) {
@@ -101,7 +112,11 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun selectTab(tab: FeedTab) = _state.update { it.copy(tab = tab) }
+    fun selectTab(tab: FeedTab) = _state.update { it.copy(tab = tab, shownCount = NewsUiState.PAGE_SIZE) }
+
+    fun loadMore() = _state.update {
+        if (it.hasMore) it.copy(shownCount = it.shownCount + NewsUiState.PAGE_SIZE) else it
+    }
 
     fun open(screen: Screen) = _state.update { it.copy(backStack = it.backStack + screen) }
 

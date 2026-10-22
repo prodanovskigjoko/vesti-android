@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -15,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 fun VestiApp(vm: NewsViewModel) {
     val state by vm.state.collectAsStateWithLifecycle()
     val favorites by vm.favorites.collectAsStateWithLifecycle()
+    val feedListState = rememberLazyListState()
 
     BackHandler(enabled = state.backStack.isNotEmpty()) { vm.back() }
     AnimatedContent(
@@ -36,6 +38,8 @@ fun VestiApp(vm: NewsViewModel) {
                 onTab = vm::selectTab,
                 onOpen = { vm.open(Screen.StoryDetail(it)) },
                 onOpenFavorites = { vm.open(Screen.Favorites) },
+                onLoadMore = vm::loadMore,
+                listState = feedListState,
             )
             is Screen.StoryDetail -> StoryScreen(
                 story = screen.story,

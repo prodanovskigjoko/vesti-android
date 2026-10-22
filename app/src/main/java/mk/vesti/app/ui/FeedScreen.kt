@@ -20,13 +20,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,6 +41,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,6 +53,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import mk.vesti.app.ui.theme.accent
 import mk.vesti.core.Story
 
@@ -57,8 +66,23 @@ fun FeedScreen(
     onTab: (FeedTab) -> Unit,
     onOpen: (Story) -> Unit,
     onOpenFavorites: () -> Unit,
+    onLoadMore: () -> Unit,
+    /** Hoisted so the scroll position survives opening a story and coming back. */
+    listState: LazyListState = rememberLazyListState(),
 ) {
     val stories = state.visibleStories
+    val scope = rememberCoroutineScope()
+    // Next page once the reader is within a few rows of the end.
+    val nearEnd by remember(listState) {
+        derivedStateOf {
+            val info = listState.layoutInfo
+            val last = info.visibleItemsInfo.lastOrNull()?.index ?: 0
+            info.totalItemsCount > 0 && last >= info.totalItemsCount - 4
+        }
+    }
+    LaunchedEffect(nearEnd, state.hasMore, state.shownCount) {
+        if (nearEnd && state.hasMore) onLoadMore()
+    }
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
         PullToRefreshBox(
             isRefreshing = state.loading && state.stories.isNotEmpty(),
@@ -66,11 +90,17 @@ fun FeedScreen(
             modifier = Modifier.fillMaxSize().statusBarsPadding(),
         ) {
             LazyColumn(
+                state = listState,
                 contentPadding = PaddingValues(bottom = 24.dp),
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
                 item { Header(favoriteCount, onOpenFavorites) }
-                stickyHeader { TabChips(state.tab, onTab) }
+                stickyHeader {
+                    TabChips(state.tab) { tab ->
+                        onTab(tab)
+                        scope.launch { listState.scrollToItem(0) }
+                    }
+                }
                 if (state.offline) item { OfflineBanner() }
 
                 when {
@@ -89,6 +119,13 @@ fun FeedScreen(
                                     )
                                 }
                                 CompactStoryRow(story, onClick = { onOpen(story) })
+                            }
+                        }
+                        if (state.hasMore) {
+                            item(key = "more") {
+                                Box(Modifier.fillMaxWidth().padding(20.dp), contentAlignment = Alignment.Center) {
+                                    CircularProgressIndicator(Modifier.size(28.dp), strokeWidth = 3.dp)
+                                }
                             }
                         }
                     }
