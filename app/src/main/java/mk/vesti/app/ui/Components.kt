@@ -20,8 +20,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -161,12 +161,12 @@ fun relativeTime(millis: Long, now: Long = System.currentTimeMillis()): String {
     }
 }
 
-/** Star used for "Зачувај за подоцна": filled when the article is saved. */
+/** Heart for "омилен медиум": filled when the outlet is a favourite. */
 @Composable
-fun SavedIcon(saved: Boolean, tint: Color) {
+fun FavoriteIcon(favorite: Boolean, tint: Color) {
     Icon(
-        if (saved) Icons.Filled.Star else Icons.Outlined.Star,
-        contentDescription = if (saved) "Отстрани од зачувани" else "Зачувај за подоцна",
+        if (favorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+        contentDescription = if (favorite) "Отстрани од омилени медиуми" else "Додај во омилени медиуми",
         tint = tint,
     )
 }

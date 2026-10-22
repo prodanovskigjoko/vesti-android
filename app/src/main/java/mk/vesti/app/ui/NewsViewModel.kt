@@ -8,8 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import mk.vesti.app.data.NewsRepository
-import mk.vesti.app.data.SavedRepository
-import mk.vesti.core.Article
+import mk.vesti.app.data.FavoritesRepository
 import mk.vesti.core.Category
 import mk.vesti.core.Story
 
@@ -37,8 +36,7 @@ sealed interface FeedTab {
 sealed interface Screen {
     data object Feed : Screen
     data class StoryDetail(val story: Story) : Screen
-    data object Saved : Screen
-    data class Reader(val article: Article) : Screen
+    data object Favorites : Screen
 }
 
 data class NewsUiState(
@@ -64,8 +62,8 @@ data class NewsUiState(
 
 class NewsViewModel(app: Application) : AndroidViewModel(app) {
     private val repository = NewsRepository(app)
-    val savedRepository = SavedRepository(app)
-    val saved: StateFlow<List<Article>> = savedRepository.saved
+    private val favoritesRepository = FavoritesRepository(app)
+    val favorites: StateFlow<Set<String>> = favoritesRepository.sources
 
     private val _state = MutableStateFlow(NewsUiState(loading = true))
     val state: StateFlow<NewsUiState> = _state
@@ -121,9 +119,5 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
         _state.update { it.copy(backStack = listOf(Screen.StoryDetail(story))) }
     }
 
-    fun toggleSaved(article: Article) {
-        viewModelScope.launch {
-            if (savedRepository.isSaved(article.link)) savedRepository.remove(article) else savedRepository.save(article)
-        }
-    }
+    fun toggleFavorite(source: String) = favoritesRepository.toggle(source)
 }

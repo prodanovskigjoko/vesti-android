@@ -46,8 +46,8 @@ import mk.vesti.core.Story
 @Composable
 fun StoryScreen(
     story: Story,
-    savedLinks: Set<String>,
-    onToggleSaved: (Article) -> Unit,
+    favorites: Set<String>,
+    onToggleFavorite: (String) -> Unit,
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -63,13 +63,7 @@ fun StoryScreen(
             modifier = Modifier.fillMaxSize().navigationBarsPadding(),
         ) {
             item {
-                Hero(
-                    story = story,
-                    saved = story.lead.link in savedLinks,
-                    onBack = onBack,
-                    onToggleSaved = { onToggleSaved(story.lead) },
-                    onShare = share,
-                )
+                Hero(story = story, onBack = onBack, onShare = share)
             }
             item {
                 Column(Modifier.padding(20.dp)) {
@@ -93,7 +87,12 @@ fun StoryScreen(
                 }
             }
             items(story.articles.sortedByDescending { it.publishedAt }, key = { it.link }) { a ->
-                SourceCard(a, saved = a.link in savedLinks, onToggleSaved = { onToggleSaved(a) }, onClick = { open(a) })
+                SourceCard(
+                    a,
+                    favorite = a.source in favorites,
+                    onToggleFavorite = { onToggleFavorite(a.source) },
+                    onClick = { open(a) },
+                )
             }
         }
     }
@@ -102,9 +101,7 @@ fun StoryScreen(
 @Composable
 private fun Hero(
     story: Story,
-    saved: Boolean,
     onBack: () -> Unit,
-    onToggleSaved: () -> Unit,
     onShare: () -> Unit,
 ) {
     Box(Modifier.fillMaxWidth().height(300.dp)) {
@@ -129,20 +126,15 @@ private fun Hero(
             FilledTonalIconButton(onClick = onBack, colors = glass) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Назад")
             }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilledTonalIconButton(onClick = onToggleSaved, colors = glass) {
-                    SavedIcon(saved, tint = if (saved) MaterialTheme.colorScheme.tertiary else Color.White)
-                }
-                FilledTonalIconButton(onClick = onShare, colors = glass) {
-                    Icon(Icons.Filled.Share, contentDescription = "Сподели")
-                }
+            FilledTonalIconButton(onClick = onShare, colors = glass) {
+                Icon(Icons.Filled.Share, contentDescription = "Сподели")
             }
         }
     }
 }
 
 @Composable
-private fun SourceCard(article: Article, saved: Boolean, onToggleSaved: () -> Unit, onClick: () -> Unit) {
+private fun SourceCard(article: Article, favorite: Boolean, onToggleFavorite: () -> Unit, onClick: () -> Unit) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainerLow,
         shape = MaterialTheme.shapes.medium,
@@ -178,8 +170,8 @@ private fun SourceCard(article: Article, saved: Boolean, onToggleSaved: () -> Un
                     overflow = TextOverflow.Ellipsis,
                 )
             }
-            IconButton(onClick = onToggleSaved) {
-                SavedIcon(saved, tint = if (saved) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+            IconButton(onClick = onToggleFavorite) {
+                FavoriteIcon(favorite, tint = if (favorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
     }

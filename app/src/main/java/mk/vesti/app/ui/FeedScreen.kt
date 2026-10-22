@@ -23,7 +23,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
@@ -52,11 +52,11 @@ import mk.vesti.core.Story
 @Composable
 fun FeedScreen(
     state: NewsUiState,
-    savedCount: Int,
+    favoriteCount: Int,
     onRefresh: () -> Unit,
     onTab: (FeedTab) -> Unit,
     onOpen: (Story) -> Unit,
-    onOpenSaved: () -> Unit,
+    onOpenFavorites: () -> Unit,
 ) {
     val stories = state.visibleStories
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
@@ -69,7 +69,7 @@ fun FeedScreen(
                 contentPadding = PaddingValues(bottom = 24.dp),
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
-                item { Header(savedCount, onOpenSaved) }
+                item { Header(favoriteCount, onOpenFavorites) }
                 stickyHeader { TabChips(state.tab, onTab) }
                 if (state.offline) item { OfflineBanner() }
 
@@ -99,7 +99,7 @@ fun FeedScreen(
 }
 
 @Composable
-private fun Header(savedCount: Int, onOpenSaved: () -> Unit) {
+private fun Header(favoriteCount: Int, onOpenFavorites: () -> Unit) {
     Row(
         Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp, top = 16.dp, bottom = 8.dp),
         verticalAlignment = Alignment.Bottom,
@@ -113,11 +113,11 @@ private fun Header(savedCount: Int, onOpenSaved: () -> Unit) {
             Text("Вести", style = MaterialTheme.typography.displaySmall)
         }
         BadgedBox(
-            badge = { if (savedCount > 0) Badge { Text("$savedCount") } },
+            badge = { if (favoriteCount > 0) Badge { Text("$favoriteCount") } },
             modifier = Modifier.padding(bottom = 6.dp),
         ) {
-            FilledTonalIconButton(onClick = onOpenSaved) {
-                Icon(Icons.Outlined.Star, contentDescription = "Зачувани")
+            FilledTonalIconButton(onClick = onOpenFavorites) {
+                Icon(Icons.Filled.FavoriteBorder, contentDescription = "Омилени медиуми")
             }
         }
     }

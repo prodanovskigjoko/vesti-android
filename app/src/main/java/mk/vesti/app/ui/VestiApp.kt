@@ -14,8 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun VestiApp(vm: NewsViewModel) {
     val state by vm.state.collectAsStateWithLifecycle()
-    val saved by vm.saved.collectAsStateWithLifecycle()
-    val savedLinks = saved.map { it.link }.toSet()
+    val favorites by vm.favorites.collectAsStateWithLifecycle()
 
     BackHandler(enabled = state.backStack.isNotEmpty()) { vm.back() }
     AnimatedContent(
@@ -32,27 +31,23 @@ fun VestiApp(vm: NewsViewModel) {
         when (screen) {
             Screen.Feed -> FeedScreen(
                 state = state,
-                savedCount = saved.size,
+                favoriteCount = favorites.size,
                 onRefresh = { vm.refresh() },
                 onTab = vm::selectTab,
                 onOpen = { vm.open(Screen.StoryDetail(it)) },
-                onOpenSaved = { vm.open(Screen.Saved) },
+                onOpenFavorites = { vm.open(Screen.Favorites) },
             )
             is Screen.StoryDetail -> StoryScreen(
                 story = screen.story,
-                savedLinks = savedLinks,
-                onToggleSaved = vm::toggleSaved,
+                favorites = favorites,
+                onToggleFavorite = vm::toggleFavorite,
                 onBack = vm::back,
             )
-            Screen.Saved -> SavedScreen(
-                articles = saved,
-                onOpen = { vm.open(Screen.Reader(it)) },
-                onRemove = vm::toggleSaved,
-                onBack = vm::back,
-            )
-            is Screen.Reader -> ReaderScreen(
-                article = screen.article,
-                loadOffline = { vm.savedRepository.offlinePage(it) },
+            Screen.Favorites -> FavoritesScreen(
+                stories = state.stories,
+                favorites = favorites,
+                onToggle = vm::toggleFavorite,
+                onOpenStory = { vm.open(Screen.StoryDetail(it)) },
                 onBack = vm::back,
             )
         }
