@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Folded newspaper, white on transparent as status bar icons require. -->
+<!-- The app's "В" mark, cropped from ic_launcher_foreground; white on transparent as status bar icons require. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path
-        android:fillColor="#FFFFFFFF"
-        android:pathData="M4,4h13v14a2,2 0,0 0,2 2H6a2,2 0,0 1,-2 -2V4zM6,7v3h5V7H6zM12,7v1h3V7h-3zM12,9v1h3V9h-3zM6,12v1h9v-1H6zM6,15v1h9v-1H6zM18,8h2v10a1,1 0,0 1,-2 0V8z" />
+    android:viewportWidth="54"
+    android:viewportHeight="54">
+    <group android:translateX="-30" android:translateY="-28">
+        <group android:scaleX="0.8" android:scaleY="0.8" android:translateX="10.8" android:translateY="14">
+            <path android:strokeColor="#FFFFFFFF" android:strokeWidth="10" android:strokeLineJoin="round"
+                android:pathData="M37,24V77" />
+            <path android:strokeColor="#FFFFFFFF" android:strokeWidth="10" android:strokeLineJoin="round"
+                android:pathData="M37,29H53a10,10 0,0 1,0 20H37" />
+            <path android:strokeColor="#FFFFFFFF" android:strokeWidth="10" android:strokeLineJoin="round"
+                android:pathData="M37,49H56a11.5,11.5 0,0 1,0 23H37" />
+            <path android:fillColor="#FFFFFFFF"
+                android:pathData="M68,26a6,6 0,1 0,12 0a6,6 0,1 0,-12 0z" />
+        </group>
+    </group>
 </vector>
