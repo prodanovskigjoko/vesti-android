@@ -2,7 +2,7 @@ package mk.vesti.app.ui
 
 /**
  * Privacy policy and terms of use, bundled so they open without a connection.
- * Keep in sync with the published documents; fill in the [placeholders] before release.
+ * Keep in sync with the published documents.
  */
 sealed interface LegalBlock {
     data class Heading(val text: String) : LegalBlock
@@ -13,8 +13,6 @@ sealed interface LegalBlock {
 
 data class LegalDocument(val title: String, val effective: String, val blocks: List<LegalBlock>)
 
-private const val NAME = "[Име и презиме]"
-private const val CITY = "[град]"
 private const val EMAIL = "vestivestimk@gmail.com"
 private const val EFFECTIVE = "22 октомври 2026"
 
@@ -27,8 +25,7 @@ val PrivacyPolicy = LegalDocument(
                 "Сè што апликацијата памети за вас останува на вашиот телефон.",
         ),
         LegalBlock.Paragraph(
-            "Оваа политика важи за Android апликацијата „Вести“. Развивач и одговорно лице е $NAME, $CITY, " +
-                "Северна Македонија. За прашања за приватноста пишете на $EMAIL.",
+            "Оваа политика важи за Android апликацијата „Вести“. За прашања за приватноста пишете на $EMAIL.",
         ),
         LegalBlock.Heading("Податоци што се чуваат на телефонот"),
         LegalBlock.Paragraph(
@@ -145,7 +142,7 @@ val TermsOfUse = LegalDocument(
         ),
         LegalBlock.Heading("Применливо право"),
         LegalBlock.Paragraph(
-            "За овие услови важат законите на Република Северна Македонија. Споровите ги решава надлежниот суд во $CITY.",
+            "За овие услови важат законите на Република Северна Македонија.",
         ),
         LegalBlock.Heading("Контакт"),
         LegalBlock.Paragraph("За прашања за овие услови пишете на $EMAIL."),
