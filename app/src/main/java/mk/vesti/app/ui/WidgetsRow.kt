@@ -25,16 +25,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import mk.vesti.app.data.Fuel
 import mk.vesti.app.data.Rate
 import mk.vesti.app.data.Weather
 import mk.vesti.app.data.Widgets
 import mk.vesti.app.data.weatherLabel
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 private val CardWidth = 210.dp
 private val CardHeight = 140.dp
 
-/** Weather and exchange rates, side by side above the stories. */
+/** Weather, fuel prices and exchange rates, side by side above the stories. */
 @Composable
 fun WidgetsRow(widgets: Widgets) {
     LazyRow(
@@ -42,6 +44,7 @@ fun WidgetsRow(widgets: Widgets) {
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         item { WeatherCard(widgets.weather) }
+        widgets.fuel?.let { fuel -> item { FuelCard(fuel) } }
         if (widgets.rates.isNotEmpty()) item { RatesCard(widgets.rates) }
     }
 }
@@ -83,6 +86,27 @@ private fun WeatherCard(weather: Weather?) {
         }
     }
 }
+
+@Composable
+private fun FuelCard(fuel: Fuel) {
+    WidgetCard(Brush.linearGradient(listOf(Color(0xFFF7971E), Color(0xFFE5532D)))) {
+        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
+            Text(
+                "ГОРИВА · ОД ${fuel.validFrom.format(fuelDate)}",
+                color = Color.White.copy(alpha = 0.85f),
+                style = MaterialTheme.typography.labelSmall,
+            )
+            fuel.prices.take(4).forEach { p ->
+                Row(Modifier.fillMaxWidth()) {
+                    Text(p.name, color = Color.White, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                    Text(String.format(Locale.US, "%.2f", p.price), color = Color.White)
+                }
+            }
+        }
+    }
+}
+
+private val fuelDate = DateTimeFormatter.ofPattern("d.M.")
 
 @Composable
 private fun RatesCard(rates: List<Rate>) {

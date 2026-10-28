@@ -7,15 +7,22 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
+import java.time.LocalDate
 
 data class Weather(val city: String, val temperature: Int, val min: Int, val max: Int, val code: Int)
 
 /** Denars for one unit of [currency]. */
 data class Rate(val currency: String, val denars: Double)
 
+/** Maximum retail price set by the energy regulator (РКЕ), e.g. БС-95 at 91.00 ден/л. */
+data class FuelPrice(val name: String, val price: Double, val unit: String)
+
+data class Fuel(val validFrom: LocalDate, val prices: List<FuelPrice>)
+
 data class Widgets(
     val weather: Weather? = null,
     val rates: List<Rate> = emptyList(),
+    val fuel: Fuel? = null,
 )
 
 /** Data for the cards above the feed. Each card loads on its own, so one failing service hides only its card. */
@@ -25,7 +32,8 @@ class WidgetsRepository(private val client: OkHttpClient = Http.client) {
         coroutineScope {
             val weather = async { runCatching { weather() }.getOrNull() }
             val rates = async { runCatching { rates() }.getOrDefault(emptyList()) }
-            Widgets(weather = weather.await(), rates = rates.await())
+            val fuel = async { runCatching { fuel() }.getOrNull() }
+            Widgets(weather = weather.await(), rates = rates.await(), fuel = fuel.await())
         }
     }
 
@@ -51,6 +59,22 @@ class WidgetsRepository(private val client: OkHttpClient = Http.client) {
         val rates = getJson("https://open.er-api.com/v6/latest/EUR").getJSONObject("rates")
         val mkdPerEur = rates.getDouble("MKD")
         return listOf("EUR", "USD", "CHF", "GBP").map { Rate(it, mkdPerEur / rates.getDouble(it)) }
+    }
+
+    /**
+     * РКЕ publishes its weekly price decision only as a web page, so the prices are kept in docs/fuel.json
+     * in this repository and updated there after each decision; the app reads the raw file.
+     */
+    private fun fuel(): Fuel {
+        val json = getJson("https://raw.githubusercontent.com/prodanovskigjoko/vesti-android/main/docs/fuel.json")
+        val prices = json.getJSONArray("prices")
+        return Fuel(
+            validFrom = LocalDate.parse(json.getString("validFrom")),
+            prices = (0 until prices.length()).map {
+                val p = prices.getJSONObject(it)
+                FuelPrice(p.getString("name"), p.getDouble("price"), p.getString("unit"))
+            },
+        )
     }
 
     private fun getJson(url: String): JSONObject {

@@ -65,6 +65,10 @@ val PrivacyPolicy = LegalDocument(
         ),
         LegalBlock.Bullet("(open.er-api.com) за дневната курсна листа.", title = "ExchangeRate-API"),
         LegalBlock.Bullet(
+            "(raw.githubusercontent.com) за цените на горивата, кои ги објавуваме по секоја одлука на РКЕ.",
+            title = "GitHub",
+        ),
+        LegalBlock.Bullet(
             "кога ќе отворите вест. Таа се отвора во вашиот прелистувач, и таму важат правилата на тој медиум.",
             title = "Веб-страниците на медиумите,",
         ),
