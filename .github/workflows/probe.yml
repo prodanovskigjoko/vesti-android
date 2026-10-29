@@ -20,24 +20,17 @@ jobs:
             code=$(curl -sL -m 30 -A "$UA" -o "probe/$1.html" -w "%{http_code} %{url_effective}" "$2" || echo "ERR")
             echo "$1 $2 -> $code" | tee -a probe/index.txt
           }
-          i=0
-          for url in \
-            https://elektrodistribucija.mk/ \
-            https://www.elektrodistribucija.mk/ \
-            https://www.evn.mk/ \
-            https://snabduvanje.evn.mk/ \
-            https://www.vodovod-skopje.com.mk/ \
-            https://vodovod-skopje.com.mk/ ; do
-            i=$((i+1)); fetch "home$i" "$url"
-          done
-          # Follow links that look like outage notices from every home page.
-          grep -hoiE 'href="[^"]+"' probe/home*.html | sed -E 's/href="([^"]+)"/\1/I' | sort -u > probe/links.txt || true
-          grep -iE 'isklu|iskluc|prekin|izvest|planir|%D0%B8%D1%81%D0%BA%D0%BB|%D0%BF%D1%80%D0%B5%D0%BA|outage|ispad|isklj' probe/links.txt > probe/candidates.txt || true
+          rm -f probe/*
+          fetch evn_map https://elektrodistribucija.mk/Grid/OutagesMap.aspx
+          fetch evn_map_mk "https://elektrodistribucija.mk/Grid/OutagesMap.aspx?lang=mk-mk"
+          fetch evn_announcements https://elektrodistribucija.mk/Media/Public-announcements.aspx
+          # Script and API references inside the outage map, to find the data endpoint.
+          grep -hoiE '(src|href)="[^"]+\.js[^"]*"|https?://[^"'"'"' ]+(api|json|outage|isklu)[^"'"'"' ]*|/[A-Za-z0-9_/.-]*(Outage|outage|Api|api|Handler|ashx|asmx|svc)[^"'"'"' ]*' probe/evn_map*.html | sort -u > probe/evn_refs.txt || true
           n=0
-          while read -r link && [ $n -lt 25 ]; do
-            n=$((n+1))
-            fetch "cand$n" "$link"
-          done < probe/candidates.txt
+          grep -oE '(src)="[^"]+\.js[^"]*"' probe/evn_map.html | sed -E 's/src="([^"]+)"/\1/' | grep -viE 'jquery|bootstrap|google|gtag|cloudflare' | head -8 | while read -r js; do
+            n=$((n+1)); case "$js" in http*) u="$js";; *) u="https://elektrodistribucija.mk$js";; esac
+            fetch "evn_js$n" "$u"
+          done
           ls -la probe
       - name: Save results on this branch
         run: |
