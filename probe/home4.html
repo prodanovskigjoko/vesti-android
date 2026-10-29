@@ -1,0 +1,822 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+	ЕВН Снабдување - ЕВН Снабдување
+</title><meta name="description" content="ЕВН Снабдување - Енергија за успех" /> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" /> 
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+<link href="/CMSPages/GetResource.ashx?stylesheetname=EVNSupply-Styles" type="text/css" rel="stylesheet"/>
+<meta name="google-site-verification" content="EyxOx2l7SuWCm0k08saQ_O9SGvCrj44PqUY1lcbyPt4" />
+<meta property="og:image" content="https://snabduvanje.mk/getmedia/0264e03e-67f5-4d42-a838-cfa20577ab9d/EVN-Logo-Color.aspx" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YKZ89JP0FM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YKZ89JP0FM');
+</script>
+<meta name="viewport" content="width=device-width">
+<!--<link rel="stylesheet" href="/K9/CMSPages/GetResource.ashx?stylesheetfile=/App_Themes/EVNSupply/fonts/font-awesome/css/font-awesome.min.css">-->
+<!--<script src="/App_Themes/EVNSupply/jsde43.css?file=vendor/modernizr-2.6.2-respond-1.1.0.min"></script>
+<script src="/CMSScripts/Custom/EVNSupply/modernizr-2.6.2-respond-1.1.0.min.js"></script>-->
+<!-- Add jQuery library -->
+<!--<script src="/App_Themes/EVNSupply/jquery_min.js"></script>-->
+<script src="/CMSScripts/Custom/EVNSupply/jquery_min.js"></script>
+
+
+<link rel="icon" type="image/png" href="/EVNSupply/favicon.ico" />
+<link rel="shortcut icon" type="image/png" href="/EVNSupply/favicon.ico" />
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<style>
+.cookieBubble {
+    position: fixed;
+    width: 450px;
+    min-height: 100px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+}
+
+.cookieBubble.top-left {
+    top: 10px;
+    left: 10px
+}
+
+.cookieBubble.top-right {
+    top: 10px;
+    right: 10px;
+}
+
+.cookieBubble.top-center {
+    top: 10px;
+    left: calc(100vw - 100vw/2 - 400px/2)
+}
+
+.cookieBubble.bottom-left {
+    bottom: 10px;
+    left: 10px
+}
+
+.cookieBubble.bottom-right {
+    bottom: 10px;
+    right: 10px;
+}
+
+.cookieBubble.bottom-center {
+    bottom: 10px;
+    left: calc(100vw - 100vw/2 - 400px/2)
+}
+
+.cookieBubble.show.top-center,
+.cookieBubble.show.top-left,
+.cookieBubble.show.top-right {
+    animation-name: popInTop;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.19, 1, .22, 1);
+    animation-fill-mode: forwards
+}
+
+.cookieBubble.show.bottom-center,
+.cookieBubble.show.bottom-left,
+.cookieBubble.show.bottom-right {
+    animation-name: popInBottom;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.19, 1, .22, 1);
+    animation-fill-mode: forwards
+}
+
+.cookieBubble.hide {
+    display: none
+}
+
+.cookieBubble .cb-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 12px
+}
+
+.cookieBubble .cb-wrapper .cb-row {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: left
+}
+
+.cookieBubble .cb-wrapper .cb-row .cb-message span {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    color: #000;
+    font-size: 18px;
+    margin-top: 0
+}
+  
+.cookieBubble .cb-wrapper .cb-row .cb-message a {
+    color: #c00;
+    text-decoration-line: underline;
+}
+
+.cookieBubble .cb-wrapper .cb-row .cb-image {
+    padding-right: 23px
+}
+
+.cookieBubble .cb-wrapper .cb-row .cb-image .cookie-inner {
+    fill: #00a4ff
+}
+
+.cookieBubble .cb-wrapper .cb-row .cb-image svg {
+    width: 75px
+}
+
+.cookieBubble .cb-wrapper .cb-row .agreement-btn {
+    margin: 0;
+    text-decoration: none;
+    color: #fff;
+    background: #00a4ff;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 100px;
+    font-size: 14px;
+    opacity: 1;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600
+}
+
+.cookieBubble .cb-wrapper .cb-row .agreement-btn:hover {
+    background-color: #0083cc
+}
+
+.cookieBubble .cb-wrapper .cb-row .cookie-policy-btn {
+    margin: 15px 0 0;
+    color: #000;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 100px;
+    font-size: 14px;
+    opacity: .95;
+    border: none;
+    cursor: pointer;
+    font-weight: 400
+}
+
+.cookieBubble .cb-wrapper .cb-row .cookie-policy-btn:hover {
+    opacity: 1;
+    text-decoration: underline
+}
+
+.cookieBubble .copyright-wrapper {
+    margin-top: 20px
+}
+
+@keyframes popInBottom {
+    0% {transform: translateY(120%);}
+    100% {transform: translateY(0);}
+}
+
+@keyframes popInTop {
+    0% {transform: translateY(-120%);}
+    100% {transform: translateY(0);}
+}
+</style> 
+<link href="/EVNSupply/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<link href="/EVNSupply/favicon.ico" type="image/x-icon" rel="icon"/>
+<link href="/CMSPages/GetResource.ashx?_webparts=677" type="text/css" rel="stylesheet"/>
+<link href="/CMSPages/GetResource.ashx?_webpartlayouts=652" type="text/css" rel="stylesheet"/>
+</head>
+<body class="LTR Mozilla MKMK ContentBody" >
+    
+    <form method="post" action="/Home.aspx" onsubmit="javascript:return WebForm_OnSubmit();" id="form">
+<div class="aspNetHidden">
+<input type="hidden" name="__CMSCsrfToken" id="__CMSCsrfToken" value="B7DpxP1EgHDigeBuTDWuf2lPtJldfAsMsAV0GK9ekjOtDJTTOi0VKYczjRn2dXudcILfpagRkvFEEmsWBhGmunMTWLOUdAUcvW31s3XI5bQ=" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form'];
+if (!theForm) {
+    theForm = document.form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZO-sx8AfDDDnWCvpFruS7sz926JpDaUhc9BtRdDJ6BffLK7KXxvVy2FWghT6rW_ogg2&amp;t=637461017481343508" type="text/javascript"></script>
+
+
+<script src="/CMSPages/GetResource.ashx?scriptfile=%7e%2fCMSWebParts%2fViewers%2fDateTime_files%2fDateTime.js" type="text/javascript"></script>
+<script type="text/javascript">
+	//<![CDATA[
+
+function dt_attachLoadEvent(callBack) {
+	if (window.addEventListener) {                    
+        window.addEventListener('load', callBack);
+    } else if (window.attachEvent) {                  
+        window.attachEvent('onload', callBack);
+    }
+}
+
+dt_attachLoadEvent(function() {
+	var now = new Date();
+	var diff = 0;
+
+startTimer('p_lt_ctl13_CopyrightYear','yyyy',diff);
+});
+
+//]]>
+</script><input type="hidden" name="lng" id="lng" value="mk-MK" />
+<script src="/CMSPages/GetResource.ashx?scriptfile=%7e%2fCMSScripts%2fWebServiceCall.js" type="text/javascript"></script>
+<script type="text/javascript">
+	//<![CDATA[
+
+function PM_Postback(param) { if (window.top.HideScreenLockWarningAndSync) { window.top.HideScreenLockWarningAndSync(1080); } if(window.CMSContentManager) { CMSContentManager.allowSubmit = true; }; __doPostBack('m$am',param); }
+function PM_Callback(param, callback, ctx) { if (window.top.HideScreenLockWarningAndSync) { window.top.HideScreenLockWarningAndSync(1080); }if (window.CMSContentManager) { CMSContentManager.storeContentChangedStatus(); };WebForm_DoCallback('m$am',param,callback,ctx,null,true); }
+//]]>
+</script>
+<script src="/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvm6GKm08sMwDiaCfhZkVqc3vMMiexyCojWcIi6NA4ecUvAuO9ZDldlLJCj9A00Pld2tXGmXUMHkVin8-oIZIANq7UJ5v5F2BGTxT3A0Ac92fKDEzkn1Lm3Jfm2qoNRGuEJAgc5agF5lsVLYA9VmAu581&amp;t=2fe674eb" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OA4VR1_e49LQ4h4v9qy1bRr8-EMJKV-h-PnWJZKX5JqM40W0ZBPPq3Id9sNVDgxgTOZ9Rm4kto46vJbTxu1gXyNlfyHV4OUcboyGKdT2Vt8Mt4m8wZwO_aw4jqiGFKpV8Qc_fkf98GOJYR-3n0FVc5I1&amp;t=2fe674eb" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=eE6V8nDbUVn0gtG6hKNX_Lmhc8CqBLrWgcTBoTelp6j4m2LvZ8w2dMhtgc0sDS6euCutn2R4GgMp9cJ49a44R3GqSIDtWRWDz5oPX6qaDkITbjjqHbtwxZ0yN361_Yel0&amp;t=27679117" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=mcAASOSteirJeuV-3by3UahP1TFn_kjOyzWvA6RMPs5pd6CX_JUyzn31vt5OJRItNjyqczoMBqnMjblCrgKZZTBqLwODOVVBnEvIfGsm3Vo1&amp;t=27679117" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=jwf4VSQi7LeShc44FJ-gAXIfSbzy97xJ52hxc4GTcRD8rwwzMCsqeomwIs7tsr0kGLuWjozFXL22AV1VQRQwaONzu080Tbp8DvECCNOZTfxsyin6Yp4dOcuZmYMPr5pv0&amp;t=27679117" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=HEFpVKbnoeQjkjHkFKu3MJ9Ttp9eyshmwUNtop9-PdA6MKxGTWW8UiUawjIgeclndU0GZBrWwjr6mhbtHdDgMp2FRH3wfW2GXqGmK0Znh75_GlBxBUvJV-Kg23VqSZpO0&amp;t=27679117" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=X6kQKInQS5YQqruiTh57iMM363PbKZ8kDQYtfGPRl6dV0z6fN6Ttvp4hxpxhsb4BYBTiKyj4cJNw_yIH0etc2KZEryjgv5oflUcOJImzBUgzobaehtN9WmefTYLLzPVZ0&amp;t=27679117" type="text/javascript"></script>
+<script type="text/javascript">
+	//<![CDATA[
+
+var CMS = CMS || {};
+CMS.Application = {
+  "language": "mk",
+  "imagesUrl": "/CMSPages/GetResource.ashx?image=%5bImages.zip%5d%2f",
+  "isDebuggingEnabled": false,
+  "applicationUrl": "/",
+  "isDialog": false,
+  "isRTL": "false"
+};
+
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+null;
+return true;
+}
+//]]>
+</script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="A5343185" />
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" />
+</div>
+    <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('manScript', 'form', ['tctxM',''], [], [], 90, '');
+//]]>
+</script>
+
+    <div id="ctxM">
+
+</div>
+    
+<!-- Main Home Layout start -->      
+      <!-- Top toolbar -->
+      <div class="top-tool-bar">
+         <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+               <!-- Toolbar get grouped for better mobile display -->
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+               </div>
+               <!-- Collect the nav links, forms, and other content for toggling -->
+               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                 <div class="topMenuLeftSide">
+                  
+<ul id="top-menu-items" class="nav navbar-nav" >
+<li >
+  <a href="/Top-menu/Contact-us.aspx">Контакт</a>
+  
+</li>
+</ul>
+
+                   </div>
+                 <div class='menuSeparator'></div>
+                 <div class="topMenuRightSide language">
+                     
+
+<ul id="top-menu-language" class="nav navbar-nav" ><li>
+<a href="/Home.aspx?lang=sq-al ">
+    <img class='flagSize' src="/EVNSupply/media/EVNSupply/Flags/sq-al.png" />
+    <span  >SQ</span>
+  
+ 
+  </a>
+</li><li>
+<a href="/Home.aspx?lang=en-us ">
+    <img class='flagSize' src="/EVNSupply/media/EVNSupply/Flags/en-us.png" />
+    <span  >EN</span>
+  
+ 
+  </a>
+</li><li>
+<a href="/Home.aspx?lang=mk-mk ">
+    <img class='flagSize' src="/EVNSupply/media/EVNSupply/Flags/mk-mk.png" />
+    <span  style='color: white; font-weight: bold;'  >MK</span>
+  
+ 
+  </a>
+</li>
+</ul>                  
+                 </div>
+                 <div class="topMenuRightSide userMenu">
+                     <ul id="top-menu-links" class="nav navbar-nav"><li><a id="p_lt_ctl02_LinkEvnMK_btnElem_hyperLink" href="http://www.evn.mk" target="_blank"><span id="p_lt_ctl02_LinkEvnMK_btnElem_lblText">ЕВН МК</span></a>
+</li></ul>                  
+                 </div>
+               </div>
+               <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+         </nav>
+      </div>
+      <!-- Logo and Ad banner -->
+      <div class="logo-top-ad">
+         <div class="container">
+            <div class="row">
+               <!-- Magalla Logo -->
+               <div class="logo col-md-9 col-lg-9">
+                  <a href="/">
+                    <img id="p_lt_ctl03_EditableImage_ucEditableImage_imgImage" class="imageLogoPadding" src="/getmedia/40bc8205-edeb-4118-b680-b30556d06dba/logo.jpg.aspx" alt="" />
+
+
+                    
+                  </a>
+                 </div>
+              <!--<div class="logo col-md-6 col-lg-6">
+                  
+                 </div>-->
+               <div class="main-search-bar col-md-3 col-lg-3">
+                  <span class="navbar-form float-width" role="search">
+<div class="form-group float-width"><div id="p_lt_ctl05_SmartSearchBox_pnlSearch" class="searchBox" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;p_lt_ctl05_SmartSearchBox_btnImageButton&#39;)">
+	
+    <label for="p_lt_ctl05_SmartSearchBox_txtWord" id="p_lt_ctl05_SmartSearchBox_lblSearch" style="display:none;">Search for:</label>
+    <input type="hidden" name="p$lt$ctl05$SmartSearchBox$txtWord_exWatermark_ClientState" id="p_lt_ctl05_SmartSearchBox_txtWord_exWatermark_ClientState" /><input name="p$lt$ctl05$SmartSearchBox$txtWord" type="text" maxlength="1000" id="p_lt_ctl05_SmartSearchBox_txtWord" class="form-control float-width" />
+    
+    <input type="image" name="p$lt$ctl05$SmartSearchBox$btnImageButton" id="p_lt_ctl05_SmartSearchBox_btnImageButton" src="/EVNSupply/media/EVNSupply/magnifier.png" alt="Search" />
+    <div id="p_lt_ctl05_SmartSearchBox_pnlPredictiveResultsHolder" class="predictiveSearchHolder">
+
+	</div>
+
+</div>
+</div></span>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Main Menu -->
+      <div id="mainMenu" class="main-menu top-tool-bar">
+         <div class="container">
+            <div class="row">
+                <!-- Main Menu -->
+                <nav class="navbar navbar-default">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-11" aria-expanded="false">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-11">
+                          
+<ul id="main-menu-items" class="sm sm-menu menu-efct" >
+
+<li class='active'>
+  <a href="/Home.aspx">Почетна</a>
+  
+</li>
+
+
+
+<li >
+  <a href="#">За нас</a>
+  <ul class="main-menu-sub">
+<li >
+  <a href="/About-us/What-we-offer-and-deliver.aspx">Што нудиме</a>
+</li>
+
+<li >
+  <a href="/About-us/Statement-of-purpose.aspx">Нашата цел</a>
+</li>
+
+<li >
+  <a href="/About-us/Our-key-account-managers.aspx">Менаџери за клучни корисници</a>
+</li>
+
+<li >
+  <a href="/About-us/Reference-list.aspx">Референтна листа</a>
+</li>
+
+<li >
+  <a href="/About-us/Management.aspx">Менаџмент</a>
+</li>
+
+<li >
+  <a href="/About-us/EVN-group.aspx">ЕВН групација</a>
+</li>
+</ul>
+</li>
+
+
+
+<li >
+  <a href="#">Електрична енергија</a>
+  <ul class="main-menu-sub">
+<li >
+  <a href="/Offer/Large-business-electricity-consumers.aspx">Бизнис корисници</a>
+</li>
+
+<li >
+  <a href="/Offer/How-to-become-our-customer.aspx">Како да станете наш корисник</a>
+</li>
+
+<li >
+  <a href="/Offer/General-terms-and-conditions.aspx">Општи услови</a>
+</li>
+
+<li >
+  <a href="/Offer/Contract-model.aspx">Модел на договор</a>
+</li>
+
+<li >
+  <a href="https://snabduvanje.evn.mk/Energy-legislation/Legislation-and-rules.aspx">Енергетска регулатива</a>
+</li>
+</ul>
+</li>
+
+
+
+<li >
+  <a href="#">Дополнителни услуги</a>
+  <ul class="main-menu-sub">
+<li >
+  <a href="/Additional-services/Energetski-konsultantski-uslugi.aspx">Енергетски консултантски услуги</a>
+</li>
+
+<li >
+  <a href="/Additional-services/EVN-Green-(1).aspx">EVN Green</a>
+</li>
+
+<li >
+  <a href="https://emobility.evn.mk/Home.aspx">Електромобилност</a>
+</li>
+
+<li >
+  <a href="/Additional-services/Virtual-producer.aspx">Виртуелен производител</a>
+</li>
+</ul>
+</li>
+
+
+
+<li >
+  <a href="#">Нашата поддршка</a>
+  <ul class="main-menu-sub">
+<li >
+  <a href="/We-support-you/Model-of-our-bill.aspx">Модел на нашата сметка</a>
+</li>
+
+<li >
+  <a href="/We-support-you/FAQs.aspx">Најчесто поставувани прашања</a>
+</li>
+
+<li >
+  <a href="/We-support-you/Electricity-supply-information.aspx">Квалитет на услуги</a>
+</li>
+
+<li >
+  <a href="/We-support-you/Links.aspx">Корисни линкови</a>
+</li>
+</ul>
+</li>
+
+
+
+<li >
+  <a href="#">Документи за преземање</a>
+  <ul class="main-menu-sub">
+<li >
+  <a href="/Documents/Download-center.aspx">Документи за преземање</a>
+</li>
+</ul>
+</li>
+
+
+
+<li >
+  <a href="/Journal.aspx">Журнал</a>
+  
+</li>
+
+</ul>
+
+                        </div>
+					</nav>
+            </div>
+            <!-- Close the Fixed Menu button -->
+            <a class="fxd-mnu-x trans1" title="Close" id="hidemenu"><span class="fa-stack fa-lg"> <i class="fa fa-times fa-stack-1x fa-inverse"></i> </span></a>
+         </div>
+      </div>
+<div id="main-content">
+  <div class="container">
+      
+  <div class="main-news-blks">
+ <div class="main-left-side removeBackground">
+    
+<div class="hm-slider-cont">
+	<!-- News slider -->
+	<div class="flex-container">
+	  <div class="flexslider hm-slider">
+		 <ul class="slides">
+<li>
+   <a href="/Additional-services/EVN-Green-(1).aspx"><img alt="" src="/getmedia/f6b39dde-77ef-42d9-8217-cfdd274539fe/EVN-Green-Slajder-MK.jpg.aspx?width=1560&height=750&ext=.jpg" /></a>
+   <!--<h3 class="cat-label cat-label1"><a href="#">NEWS</a></h3>-->
+   <div class="hm-sldr-caption">
+	  <h3><a href="/Additional-services/EVN-Green-(1).aspx">EVN Green</a></h3>
+	  
+   </div>
+</li><li>
+   <a href="/Offer/Large-business-electricity-consumers.aspx"><img alt="" src="/getmedia/99d6f824-f413-4be8-b6eb-a827964878ef/4K3A3068.JPG.aspx?width=800&height=533&ext=.jpg" /></a>
+   <!--<h3 class="cat-label cat-label1"><a href="#">NEWS</a></h3>-->
+   <div class="hm-sldr-caption">
+	  <h3><a href="/Offer/Large-business-electricity-consumers.aspx">Бизнис корисници</a></h3>
+	  
+   </div>
+</li><li>
+   <a href="/Additional-services/Energetski-konsultantski-uslugi.aspx"><img alt="" src="/getmedia/4a2c1a08-74d8-4942-bd81-c36c31bbc482/solar-panel-energy-system_2.jpg.aspx?width=1471&height=956&ext=.jpg" /></a>
+   <!--<h3 class="cat-label cat-label1"><a href="#">NEWS</a></h3>-->
+   <div class="hm-sldr-caption">
+	  <h3><a href="/Additional-services/Energetski-konsultantski-uslugi.aspx">Енергетски консултантски услуги</a></h3>
+	  
+   </div>
+</li><li>
+   <a href="/Offer/How-to-become-our-customer.aspx"><img alt="" src="/getmedia/07e5fc5e-0dae-4cf7-aca6-526a1a6a8dc7/food-factory-worker_slider.jpg.aspx?width=800&height=400&ext=.jpg" /></a>
+   <!--<h3 class="cat-label cat-label1"><a href="#">NEWS</a></h3>-->
+   <div class="hm-sldr-caption">
+	  <h3><a href="/Offer/How-to-become-our-customer.aspx">Како да станете наш корисник</a></h3>
+	  
+   </div>
+</li><li>
+   <a href="/We-support-you/Model-of-our-bill.aspx"><img alt="" src="/getmedia/0c6d9300-e974-4ce7-8399-98788bf2e825/3K1A0386_slider.jpg.aspx?width=800&height=400&ext=.jpg" /></a>
+   <!--<h3 class="cat-label cat-label1"><a href="#">NEWS</a></h3>-->
+   <div class="hm-sldr-caption">
+	  <h3><a href="/We-support-you/Model-of-our-bill.aspx">Модел на нашата сметка</a></h3>
+	  
+   </div>
+</li>
+</ul>
+	  </div>
+	</div>
+</div>
+	<div class="top-news float-width">
+	   <div class="float-width sec-cont">
+		  <h3 class="box-top-title">
+
+
+
+</h3>
+            <div class="row">
+<div class="col-sm-6 col-md-6">
+  <div class="thumbnail thumbnailHomePage">
+    <div class='thumbnailImage'>
+      <a href="/Additional-services/EVN-Green-(1).aspx"><img alt="" src="/getmedia/4bb95a01-2d50-4556-832a-fee1ca7daf7b/Group-351.png.aspx?width=1920&height=1320&ext=.png"/></a>
+    </div>
+    <div class="caption">
+      <h3><a href="/Additional-services/EVN-Green-(1).aspx">EVN Green</a></h3>
+      Со EVN Green добивате официјална потврда за потеклото на испорачаната електрична енергија.  <a href='/Additional-services/EVN-Green-(1).aspx' class='readMore'>повеќе<span class='fa fa-angle-right'></span><span class='fa fa-angle-right'></span></a>
+    </div>
+  </div>
+</div><div class="col-sm-6 col-md-6">
+  <div class="thumbnail thumbnailHomePage">
+    <div class='thumbnailImage'>
+      <a href="/Additional-services/Energetski-konsultantski-uslugi.aspx"><img alt="" src="/getmedia/fc5599c1-3d48-4e35-812f-922104b91068/solar-panel-energy-system_1.jpg.aspx?width=1471&height=956&ext=.jpg"/></a>
+    </div>
+    <div class="caption">
+      <h3><a href="/Additional-services/Energetski-konsultantski-uslugi.aspx">Енергетски консултантски услуги</a></h3>
+      ЕВН Електроснабдување воведе нов продукт кој обезбедува стручна консултација за компании кои сака... <a href='/Additional-services/Energetski-konsultantski-uslugi.aspx' class='readMore'>повеќе<span class='fa fa-angle-right'></span><span class='fa fa-angle-right'></span></a>
+    </div>
+  </div>
+</div><div class="col-sm-6 col-md-6">
+  <div class="thumbnail thumbnailHomePage">
+    <div class='thumbnailImage'>
+      <a href="/Offer/Large-business-electricity-consumers.aspx"><img alt="" src="/getmedia/ae9c0331-fd47-48e8-9ace-7d2174e5e634/4K3A3068.JPG.aspx?width=800&height=533&ext=.jpg"/></a>
+    </div>
+    <div class="caption">
+      <h3><a href="/Offer/Large-business-electricity-consumers.aspx">Бизнис корисници</a></h3>
+      ЕВН Снабдување ги разбира уникатните потреби на бизнис корисниците и нуди производи кои се прилаг... <a href='/Offer/Large-business-electricity-consumers.aspx' class='readMore'>повеќе<span class='fa fa-angle-right'></span><span class='fa fa-angle-right'></span></a>
+    </div>
+  </div>
+</div><div class="col-sm-6 col-md-6">
+  <div class="thumbnail thumbnailHomePage">
+    <div class='thumbnailImage'>
+      <a href="/About-us/Our-key-account-managers.aspx"><img alt="" src="/getmedia/6f04f3a9-1279-4357-ae12-e556531f321e/4K3A2446.jpg.aspx?width=800&height=533&ext=.jpg"/></a>
+    </div>
+    <div class="caption">
+      <h3><a href="/About-us/Our-key-account-managers.aspx">Нашите менаџери за клучни корисници</a></h3>
+      За детална стручна поддршка Ве молиме контактирајте ги нашите менаџери за клучни корисници <a href='/About-us/Our-key-account-managers.aspx' class='readMore'>повеќе<span class='fa fa-angle-right'></span><span class='fa fa-angle-right'></span></a>
+    </div>
+  </div>
+</div><div class="col-sm-6 col-md-6">
+  <div class="thumbnail thumbnailHomePage">
+    <div class='thumbnailImage'>
+      <a href="/Offer/How-to-become-our-customer.aspx"><img alt="" src="/getmedia/5a6d174b-a38e-43cd-bc86-0baf0c63c4ab/food-factory-worker-is-standing-front-ovens-carrying-cookies-baking.jpg.aspx?width=800&height=533&ext=.jpg"/></a>
+    </div>
+    <div class="caption">
+      <h3><a href="/Offer/How-to-become-our-customer.aspx">Како да станете наш корисник</a></h3>
+      За конкретна понуда Ве молиме контактирајте не на <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7d0e131c1f19080b1c1317185014131b123d180b13531016">[email&#160;protected]</a> или со нашите менаџери ... <a href='/Offer/How-to-become-our-customer.aspx' class='readMore'>повеќе<span class='fa fa-angle-right'></span><span class='fa fa-angle-right'></span></a>
+    </div>
+  </div>
+</div><div class="col-sm-6 col-md-6">
+  <div class="thumbnail thumbnailHomePage">
+    <div class='thumbnailImage'>
+      <a href="/About-us/Reference-list.aspx"><img alt="" src="/getmedia/520293c0-546c-4e86-a2c8-78fba3a491bb/boxes-kept-shelves-warehouse.jpg.aspx?width=800&height=533&ext=.jpg"/></a>
+    </div>
+    <div class="caption">
+      <h3><a href="/About-us/Reference-list.aspx">Референтна листа</a></h3>
+      Дел од компаниите кои ни ја дадоа својата доверба <a href='/About-us/Reference-list.aspx' class='readMore'>повеќе<span class='fa fa-angle-right'></span><span class='fa fa-angle-right'></span></a>
+    </div>
+  </div>
+</div>
+</div>
+	   </div>
+	</div>
+   </div>
+    <div class="main-right-side">
+   <div class="float-width sec-cont">
+    <h3 class="box-top-title"></h3>
+    
+<a class="ad-rt" href="https://emobility.evn.mk/Home.aspx?lang=mk"><img alt="" src="/getmedia/2ae3262f-13e1-455b-9e5c-33e2feeef99e/EVN-Emobility-Web-Site-B1_Kostad.png.aspx?width=1200&height=577&ext=.png"/></a><a class="ad-rt" href="/We-support-you/FAQs.aspx"><img alt="" src="/getmedia/cecbea3f-7b08-4b25-b344-510586695c1a/EVN-Web-banner-staticen-1-MK.jpg.aspx?width=350&height=180&ext=.jpg"/></a><a class="ad-rt" href="/Top-menu/Contact-us.aspx"><img alt="" src="/getmedia/bd4aac6d-8b6b-4504-a163-e287b75674ef/EVN-Web-banner-staticen_2025_MK.jpg.aspx?width=350&height=180&ext=.jpg"/></a><a class="ad-rt" href="/cdn-cgi/l/email-protection#b1c2dfd0d3d5c4c7d0dfdbd49cd8dfd7def1d4c7df9fdcda"><img alt="" src="/Media/SideBar/emailMak.aspx?ext=."/></a><a class="ad-rt" href="https://evn.mk/Responsibility/Compliance-management.aspx?lang=mk-mk"><img alt="" src="/getmedia/2d28f7d5-d026-43c8-922c-dad8188d4f40/CompMK.jpg.aspx?width=350&height=180&ext=.jpg"/></a>
+
+      </div>
+   </div>
+</div>
+  </div>
+  </div>
+<div id="Breadcrumb">
+  <div class="container">
+      <span class=sep>
+      <img src="/EVNSupply/media/EVNSupply/breadcrumb-sep.png" >
+    </span><span  class="CMSBreadCrumbsCurrentItem">Почетна</span>
+<span class=sep>
+      <img src="/EVNSupply/media/EVNSupply/breadcrumb-sep.png" >
+    </span>
+
+  </div>
+  </div>
+
+      <!-- Footer -->
+      <div class="main-footers">
+         <div class="container">
+            <!-- Info footer -->
+           <div class="float-width">
+             <div class="post-ftr-pola lefty"> 
+               ЕВН Македонија Електроснабдување ДООЕЛ Скопје<br />
+Ул.Лазар Личеноски бр.11, Скопје<br />
+П. ФАХ 694, Скопје 1000, Македонија<br />
+Телефон: +389 (0)2 3205 500<br />
+<a href="/cdn-cgi/l/email-protection#5f2c313e3d3b2a293e31353a72363139301f3a2931713234"><span class="__cf_email__" data-cfemail="8cffe2edeee8f9faede2e6e9a1e5e2eae3cce9fae2a2e1e7">[email&#160;protected]</span></a>
+
+
+
+
+             </div>
+             <div class="post-ftr-pola righty righty-txt">
+               <a href="/About-us/PrivacyPolicy.aspx" target="_self">Политика за приватност</a>
+
+
+
+
+              </div>             
+             <!--
+             <div class="post-ftr lefty">
+               <a href="/About-us/PrivacyPolicy.aspx" target="_self">Политика за приватност</a>
+
+
+
+
+              </div>
+              <div class="twts-ftr lefty">
+                
+                </div>-->
+            </div>
+         </div>
+      </div>
+      <!-- Copy right footer -->
+      <div class="copy-rt-ftr">
+         <div class="container">
+            <a class="lefty">EVN Makedonija Elektrosnabduvanje &#169; Copyright <div class='displayInline'><div id="time_p_lt_ctl13_CopyrightYear" ></div></div>, All Rights Reserved</a>
+         </div>
+      </div>
+
+      <!-- Copy right footer -->
+   <!-- Main Home Layout Ends --> 
+
+   
+<!--<script src="/App_Themes/EVNSupply/js5a10.css?file=vendor/jquery-1.10.1.min"></script>  -->     
+
+<!--<script src="/App_Themes/EVNSupply/js9978.css?file=vendor/bootstrap.min"></script>-->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/CMSScripts/Custom/EVNSupply/bootstrap.min.js"></script>
+<script src="/CMSScripts/Custom/EVNSupply/jquery.smartmenus.min.js"></script>
+<!--<script src="/App_Themes/EVNSupply/jsec26.css?file=jquery.smartmenus.min"></script>--> 
+<!--<script src="/App_Themes/EVNSupply/jsec26.css?file=jquery.smartmenus.min"></script>--> 
+<!--<script src="/App_Themes/EVNSupply/js047d.css?file=jquery.flexslider-min"></script>-->
+<script src="/CMSScripts/Custom/EVNSupply/jquery.flexslider-min.js"></script>
+<!--<script src="/App_Themes/EVNSupply/js288f.css?file=newsTicker"></script>-->
+<script src="/CMSScripts/Custom/EVNSupply/newsTicker.js"></script>
+<script src="/CMSScripts/Custom/EVNSupply/cookieBubble_mk-MK.js" type="text/javascript"></script>
+
+   <!--<script src="/App_Themes/EVNSupply/js6a7f.css?file=jquery.customSelect.min"></script>-->
+
+   <!-- <script src="/App_Themes/EVNSupply/jse3a4.css?file=retina-1.1.0.min"></script> -->
+
+   <!--<script src="/App_Themes/EVNSupply/jsf0b3.css?file=jflickrfeed.min"></script>-->
+<script src="/CMSScripts/Custom/EVNSupply/main.js"></script>
+   <!--<script src="/App_Themes/EVNSupply/js35ad.css?file=main"></script>-->
+<script>
+    (function ($) {
+            $.cookieBubble({
+              cookiePolicyButtonUrl:"/About-us/PrivacyPolicy.aspx",
+            });
+    })(jQuery);
+</script>
+    
+    
+
+<script type="text/javascript">
+	//<![CDATA[
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+//]]>
+</script>
+<script type="text/javascript">
+	//<![CDATA[
+if ( (parent == null) || (!parent.IsCMSDesk) ) {
+try { 
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-91268050-1']);
+_gaq.push(['_trackPageview']);
+} catch(err) {}
+}
+//]]>
+</script>
+<script type="text/javascript">
+	//<![CDATA[
+WebServiceCall('/cmsapi/webanalytics', 'LogHit', '{"NodeAliasPath":"/Home","DocumentCultureCode":"mk-MK","UrlReferrer":""}')
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+var callBackFrameUrl='/WebResource.axd?d=beToSAE3vdsL1QUQUxjWdV3WgoTmd6Pu_ynYlQue6rQWvRiMnU1yaRqtA7x4LSIsR5xcLoHizR1ucWkxAyaO5Q2&t=637461017481343508';
+WebForm_InitCallback();
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+Sys.Application.add_init(function() {
+    $create(Sys.Extended.UI.TextBoxWatermarkBehavior, {"ClientStateFieldID":"p_lt_ctl05_SmartSearchBox_txtWord_exWatermark_ClientState","id":"p_lt_ctl05_SmartSearchBox_txtWord_exWatermark","watermarkCssClass":"form-control float-width watermarkSearch","watermarkText":"Пребарувај..."}, null, null, $get("p_lt_ctl05_SmartSearchBox_txtWord"));
+});
+//]]>
+</script>
+</form>
+</body>
+</html>

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html  >
+<head id="head"><title>
+	ЕВН Македонија - Home
+</title><meta charset="UTF-8" /> 
+<link href="/CMSPages/GetResource.ashx?stylesheetname=EVNMK-styles" type="text/css" rel="stylesheet"/>
+<meta charset="utf-8"> 
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T459KEKRNZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-T459KEKRNZ');
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link href="/EVN/fa5/css/all.css" rel="stylesheet">
+<style>
+      .menu-section {
+        backdrop-filter: blur(0.5em);
+        -webkit-backdrop-filter: blur(0.5em);
+  }
+</style>
+<style>
+    .gallery-container {  
+       position: -webkit-sticky !important;
+       position: sticky !important;
+    }
+    .gallery-text {pointer-events: none;}
+    
+    .item {display: inline-block;}
+    .list {display:block !important;}
+    .slick-prev:hover,
+    .slick-prev:focus,
+    .slick-next:hover,
+    .slick-next:focus
+    {
+        outline: none;
+    }
+    .slick-slide, .slick-slide *{ outline: none !important; }
+</style>
+<style>
+.cookieBubble {
+    position: fixed;
+    width: 450px;
+    min-height: 100px;
+    border-radius: 0px;
+    background-color: #fff;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+}
+  
+@media screen and (max-width: 449px) {
+    .cookieBubble {
+        width: 350px;
+    }
+}
+
+.cookieBubble.top-left {
+    top: 10px;
+    left: 10px
+}
+
+.cookieBubble.top-right {
+    top: 10px;
+    right: 10px;
+}
+
+.cookieBubble.top-center {
+    top: 10px;
+    left: calc(100vw - 100vw/2 - 400px/2)
+}
+
+.cookieBubble.bottom-left {
+    bottom: 10px;
+    left: 10px
+}
+
+.cookieBubble.bottom-right {
+    bottom: 10px;
+    right: 10px;
+}
+
+.cookieBubble.bottom-center {
+    bottom: 10px;
+    left: calc(100vw - 100vw/2 - 400px/2)
+}
+
+.cookieBubble.show.top-center,
+.cookieBubble.show.top-left,
+.cookieBubble.show.top-right {
+    animation-name: popInTop;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.19, 1, .22, 1);
+    animation-fill-mode: forwards
+}
+
+.cookieBubble.show.bottom-center,
+.cookieBubble.show.bottom-left,
+.cookieBubble.show.bottom-right {
+    animation-name: popInBottom;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.19, 1, .22, 1);
+    animation-fill-mode: forwards
+}
+
+.cookieBubble.hide {
+    display: none
+}
+
+.cookieBubble .cb-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 12px
+}
+
+.cookieBubble .cb-wrapper .cb-row {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: left
+}
+
+.cookieBubble .cb-wrapper .cb-row .cb-message span {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    color: #000;
+    font-size: 18px;
+    margin-top: 0
+}
+  
+.cookieBubble .cb-wrapper .cb-row .cb-message a {
+    color: #e0001b;
+    text-decoration-line: none;
+}
+  
+.cookieBubble .cb-wrapper .cb-row .cb-message a:hover {
+    color: #4a4a4a;
+}  
+
+.cookieBubble .cb-wrapper .cb-row .cb-image {
+    padding-right: 23px
+}
+
+.cookieBubble .cb-wrapper .cb-row .cb-image .cookie-inner {
+    fill: #e0001b
+}
+
+.cookieBubble .cb-wrapper .cb-row .cb-image svg {
+    width: 75px
+}
+
+.cookieBubble .cb-wrapper .cb-row .agreement-btn {
+    margin: 0;
+    text-decoration: none;
+    color: #fff;
+    background: #4a4a4a;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 100px;
+    font-size: 14px;
+    opacity: 1;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600
+}
+
+.cookieBubble .cb-wrapper .cb-row .agreement-btn:hover {
+    background-color: #e0001b
+}
+
+.cookieBubble .cb-wrapper .cb-row .cookie-policy-btn {
+    margin: 15px 0 0;
+    color: #000;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 100px;
+    font-size: 14px;
+    opacity: .95;
+    border: none;
+    cursor: pointer;
+    font-weight: 400
+}
+
+.cookieBubble .cb-wrapper .cb-row .cookie-policy-btn:hover {
+    opacity: 1
+}
+
+.cookieBubble .copyright-wrapper {
+    margin-top: 20px
+}
+
+@keyframes popInBottom {
+    0% {transform: translateY(120%);}
+    100% {transform: translateY(0);}
+}
+
+@keyframes popInTop {
+    0% {transform: translateY(-120%);}
+    100% {transform: translateY(0);}
+}
+</style>
+<script src="https://widget.easeaccess24.com/sdk.js?key=53yxTsriL7"></script> 
+<link href="/EVN/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<link href="/EVN/favicon.ico" type="image/x-icon" rel="icon"/>
+</head>
+<body class="LTR Mozilla MKMK ContentBody"  body>
+    
+    <form method="post" action="/" id="form">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form'];
+if (!theForm) {
+    theForm = document.form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZH0Hk2GT9Dfol1xjQtnttnsCMH9KRVVPBFW4wS4v58JjYvdT7G84DwK-9Jt7P4T8Kw2&amp;t=637461017481343508" type="text/javascript"></script>
+
+
+<script src="/CMSPages/GetResource.ashx?scriptfile=%7e%2fCMSWebParts%2fViewers%2fDateTime_files%2fDateTime.js" type="text/javascript"></script>
+<script type="text/javascript">
+	//<![CDATA[
+
+function dt_attachLoadEvent(callBack) {
+	if (window.addEventListener) {                    
+        window.addEventListener('load', callBack);
+    } else if (window.attachEvent) {                  
+        window.attachEvent('onload', callBack);
+    }
+}
+
+dt_attachLoadEvent(function() {
+	var now = new Date();
+	var diff = 0;
+
+startTimer('p_lt_ctl15_DateTime','yyyy',diff);
+});
+
+//]]>
+</script><input type="hidden" name="lng" id="lng" value="mk-MK" />
+<script src="/CMSPages/GetResource.ashx?scriptfile=%7e%2fCMSScripts%2fWebServiceCall.js" type="text/javascript"></script>
+<script type="text/javascript">
+	//<![CDATA[
+
+function PM_Postback(param) { if (window.top.HideScreenLockWarningAndSync) { window.top.HideScreenLockWarningAndSync(1080); } if(window.CMSContentManager) { CMSContentManager.allowSubmit = true; }; __doPostBack('m$am',param); }
+function PM_Callback(param, callback, ctx) { if (window.top.HideScreenLockWarningAndSync) { window.top.HideScreenLockWarningAndSync(1080); }if (window.CMSContentManager) { CMSContentManager.storeContentChangedStatus(); };WebForm_DoCallback('m$am',param,callback,ctx,null,true); }
+//]]>
+</script>
+<script src="/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvmuT4-G5PwPCOc55l7shT2wlzPfW-TR_K-XoecYIfzJ270qZixXEH3x_DFTMil1WJw5xMrz4iQ0wvFjtAzGVySu9shOHFvypklOff-tZW5cxkDIVkBwWMeHYEyy1W7Va9Vq-o8fl-_T_sFeQPEiWFqo1&amp;t=2fe674eb" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OA5HBeITCNbG6zn3oLfxHURc_ADYbxVwWpc7j_0DxMDCBJ1P-f2RZ9kzn0ebeEyKiR8WEwu6GCZVI8e87B_HrSj1OjczZYhgD4IqSF09K3Lc7_JKpfpuAzBSlU2xUDT1HTjXOqNXU4wssoCiU5taW201&amp;t=2fe674eb" type="text/javascript"></script>
+<script type="text/javascript">
+	//<![CDATA[
+
+var CMS = CMS || {};
+CMS.Application = {
+  "language": "mk",
+  "imagesUrl": "/CMSPages/GetResource.ashx?image=%5bImages.zip%5d%2f",
+  "isDebuggingEnabled": false,
+  "applicationUrl": "/",
+  "isDialog": false,
+  "isRTL": "false"
+};
+
+//]]>
+</script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="A5343185" />
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" />
+</div>
+    <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('manScript', 'form', ['tctxM',''], [], [], 90, '');
+//]]>
+</script>
+
+    <div id="ctxM">
+
+</div>
+    
+<nav id="menu" class="menu-section">
+  <div class="menu-container">
+    <div data-collapse="all" data-animation="default" data-duration="400" role="banner" class="hamburger-menu w-nav">
+      <div class="hm-container w-container">
+        <nav role="navigation" class="hm-wrapper w-nav-menu">
+          
+
+<div class="hm-block-wrapper lang"><a href="/?lang=mk-mk" class="lang-menu-item"  style='color: #e0001b; font-weight: bold;' >
+  MK
+</a><a href="/?lang=sq-al" class="lang-menu-item" >
+  AL
+</a><a href="/?lang=en-gb" class="lang-menu-item" >
+  EN
+</a>
+</div>
+          
+<div class="hm-block-wrapper">
+  
+<a href="/"  aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"><img src="/EVN/media/img/Icon_Home_new.svg?ext=.svg" loading="lazy" alt="" class="hm-icon-img"></div>
+  <h4 class="hm-link-text">Почетна</h4>
+</a>
+
+
+</div><div class="hm-block-wrapper">
+  
+<a href="/Invoices.aspx"  aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"><img src="/EVN/media/img/Icon_Se-za-Fakturi.svg?ext=.svg" loading="lazy" alt="" class="hm-icon-img"></div>
+  <h4 class="hm-link-text">Сѐ за фактури</h4>
+</a>
+
+<a href="/Invoices.aspx#s2"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Информации за фактура</h4>
+</a>
+
+<a href="/Invoices.aspx#s3"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Како да платам фактура?</h4>
+</a>
+
+<a href="/Invoices.aspx#s4"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Цени</h4>
+</a>
+
+<a href="/Invoices.aspx#s5"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Тарифен систем</h4>
+</a>
+
+<a href="/Invoices.aspx#s6"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Дополнителни услуги</h4>
+</a>
+
+
+</div><div class="hm-block-wrapper">
+  
+<a href="/Services.aspx"  aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"><img src="/EVN/media/img/Icon_Uslugi.svg?ext=.svg" loading="lazy" alt="" class="hm-icon-img"></div>
+  <h4 class="hm-link-text">Услуги на едно место</h4>
+</a>
+
+<a href="/Services.aspx#s2"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Кориснички услуги и права</h4>
+</a>
+
+<a href="/Services.aspx#s3"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Енергетска ефикасност</h4>
+</a>
+
+<a href="/Services.aspx#s4"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Електромобилност</h4>
+</a>
+
+
+</div><div class="hm-block-wrapper">
+  
+<a href="https://www.elektrodistribucija.mk/Services/New-electricity-connection.aspx?lang=mk-mk" target=_blank aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"><img src="/EVN/media/img/Icon_Korisnik.svg?ext=.svg" loading="lazy" alt="" class="hm-icon-img"></div>
+  <h4 class="hm-link-text">Станете наш корисник</h4>
+</a>
+
+
+</div><div class="hm-block-wrapper">
+  
+<a href="/Contact.aspx"  aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"><img src="/EVN/media/img/Icon_Kontakt.svg?ext=.svg" loading="lazy" alt="" class="hm-icon-img"></div>
+  <h4 class="hm-link-text">Зборувај со нас</h4>
+</a>
+
+<a href="/Contact.aspx#s1"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Мапа на локации</h4>
+</a>
+
+<a href="/Contact.aspx#s2"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">24/7 поддршка</h4>
+</a>
+
+<a href="/Contact.aspx#s3"   aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Инфо центар</h4>
+</a>
+
+
+</div>
+<div class="hm-block-wrapper other">
+
+<a href="/TopMenu/About-Us.aspx" aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">За нас</h4>
+</a>
+
+<a href="/TopMenu/Procurement.aspx" aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Набавки</h4>
+</a>
+
+<a href="https://careers.evn.mk/" aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Кариера</h4>
+</a>
+
+<a href="/TopMenu/Responsibility.aspx" aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Одговорност</h4>
+</a>
+
+<a href="/TopMenu/Media.aspx" aria-current="page" class="hm-link-wrapper w-inline-block ">
+  <div class="hm-link-icon"></div>
+  <h4 class="hm-link-text hm-sub-link">Медиуми</h4>
+</a>
+
+</div>
+          
+        </nav>
+        <div data-w-id="64372af9-7341-d2e9-f60c-107f335ccc13" class="hm-btn w-nav-button">
+          <div class="hm-btn-icon w-icon-nav-menu"></div>
+        </div>
+      </div>
+    </div>
+    <a id="p_lt_ctl03_EvnHomeLink_btnElem_hyperLink" class="logo-wrapper w-inline-block w--current" href="/"><img id="p_lt_ctl03_EvnHomeLink_btnElem_image" class="image" src="/EVN/media/img/EVN-Logo.svg?ext=.svg" /><span id="p_lt_ctl03_EvnHomeLink_btnElem_lblText"></span></a>
+
+    <div class="evn-slogan-wrapper">
+      <h5 class="evn-slogan"><a id="p_lt_ctl04_Link_Button_btnElem_hyperLink" class="evn-slogan-link" href="/AboutUs/EvnEnergyLifeFuture.aspx"><span id="p_lt_ctl04_Link_Button_btnElem_lblText">Енергија. Живот. Иднина.</span></a>
+</h5>
+    </div>
+    <div class="menu-separator"></div>
+    <div class="sub-menu">
+      
+
+<div class="sub-menu-block">
+  <a href="/TopMenu/About-Us.aspx" aria-current="page" class="sub-menu-link  ">За нас</a>
+</div>
+
+<div class="sub-menu-block">
+  <a href="/TopMenu/Procurement.aspx" aria-current="page" class="sub-menu-link  ">Набавки</a>
+</div>
+
+<div class="sub-menu-block">
+  <a href="https://careers.evn.mk/" aria-current="page" class="sub-menu-link  ">Кариера</a>
+</div>
+
+<div class="sub-menu-block">
+  <a href="/TopMenu/Responsibility.aspx" aria-current="page" class="sub-menu-link  ">Одговорност</a>
+</div>
+
+<div class="sub-menu-block">
+  <a href="/TopMenu/Media.aspx" aria-current="page" class="sub-menu-link  ">Медиуми</a>
+</div>
+
+
+    </div>
+    <div class="moj-evn">
+      <div data-w-id="32d0124b-0d3f-e64d-c3ec-3b0e0f142976" class="evn-link-block">
+        <a id="p_lt_ctl06_Link_Evnonline_btnElem_hyperLink" class="link-block w-inline-block" href="https://online.evn.mk/" target="_blank"><img id="p_lt_ctl06_Link_Evnonline_btnElem_image" class="evn-home-icon" src="/EVN/media/img/laptop-icon.svg?ext=.svg" /><span id="p_lt_ctl06_Link_Evnonline_btnElem_lblText"></span></a>
+
+        <div class="evn-home-line"></div>
+        <a href="https://online.evn.mk" target="_blank" class="evn-home-link">Мој <br>ЕВН Хоме</a>
+      </div>
+    </div>
+    
+
+<div class="lang-menu"><a href="/?lang=mk-mk" class="lang-menu-item"  style='color: #e0001b; font-weight: bold;' >
+  MK
+</a><a href="/?lang=sq-al" class="lang-menu-item" >
+  AL
+</a><a href="/?lang=en-gb" class="lang-menu-item" >
+  EN
+</a>
+</div>
+  </div>
+</nav>
+<div class="side-menu">
+<a id="back-arrow" href="javascript:history.back();" class="side-menu-link w-inline-block">
+  <div tooltipster="left" title="Назад" class="side-menu-link-wrapperp"><img src="/EVN/media/img/Path-16.svg?ext=.svg" loading="lazy" alt="" class="bg-path-red"><img src="/EVN/media/img/path-white.svg?ext=.svg" loading="lazy" alt="" class="bg-path-white"><img src="/EVN/media/img/arrow.svg?ext=.svg" loading="lazy" alt="" class="back-icon-white "><img src="/EVN/media/img/Icon_Back.svg?ext=.svg" loading="lazy" alt="" class="back-icon-red "></div>
+</a><a id="discon-arrow" href="https://www.elektrodistribucija.mk/Grid/Planned-disconnections.aspx?lang=mk-mk" class="side-menu-link w-inline-block">
+  <div tooltipster="left" title="Планирани прекини" class="side-menu-link-wrapperp"><img src="/EVN/media/img/Path-16.svg?ext=.svg" loading="lazy" alt="" class="bg-path-red"><img src="/EVN/media/img/path-white.svg?ext=.svg" loading="lazy" alt="" class="bg-path-white"><img src="/EVN/media/img/prekin-btn.svg?ext=.svg" loading="lazy" alt="" class="back-icon-white "><img src="/EVN/media/img/prekin-btn-red.svg?ext=.svg" loading="lazy" alt="" class="back-icon-red "></div>
+</a><a id="faq-arrow" href="/FAQ.aspx" class="side-menu-link w-inline-block">
+  <div tooltipster="left" title="ЧПП" class="side-menu-link-wrapperp"><img src="/EVN/media/img/Path-16.svg?ext=.svg" loading="lazy" alt="" class="bg-path-red"><img src="/EVN/media/img/path-white.svg?ext=.svg" loading="lazy" alt="" class="bg-path-white"><img src="/EVN/media/Icons/FAQ_Icon_W.svg?ext=.svg" loading="lazy" alt="" class="back-icon-white faq"><img src="/EVN/media/Icons/FAQ_Icon_R.svg?ext=.svg" loading="lazy" alt="" class="back-icon-red faq"></div>
+</a><a id="ea24-arrow" href="#" class="side-menu-link w-inline-block">
+  <div tooltipster="left" title="Опции за пристапност" class="side-menu-link-wrapperp"><img src="/EVN/media/img/Path-16.svg?ext=.svg" loading="lazy" alt="" class="bg-path-red"><img src="/EVN/media/img/path-white.svg?ext=.svg" loading="lazy" alt="" class="bg-path-white"><img src="/EVN/media/img/iconea24.svg?ext=.svg" loading="lazy" alt="" class="back-icon-white ea24"><img src="/EVN/media/img/iconea24red.svg?ext=.svg" loading="lazy" alt="" class="back-icon-red ea24"></div>
+</a>
+</div>
+
+
+<section id="s1" class="section-one hero">
+  <div class="container-slider-mp">
+    <div class="hero-header">
+      <h1 class="hero-heading">Добредојдовте во ЕВН</h1>
+    </div>
+          <div class="hero-slider">
+        <div data-delay="4000" data-animation="slide" data-autoplay="1" data-duration="500" data-infinite="1" class="slider w-slider">
+          <div class="w-slider-mask">
+
+<a href="https://www.youtube.com/watch?v=GdM579NGDNw&list=PLWI3Db4NcQJyx55ekXKEer0lTVIyuD3UY" target="_blank"><div class="slide w-slide" style="background-image: url('/EVN/media/Banners/EE-EVN-Banner_1920x713_ZA-EVN-MK.jpg?ext=.jpg');"></div></a><a href="https://www.youtube.com/watch?v=2MlG21wTGLo" target="_blank"><div class="slide slide-elf w-slide" style="background-image: url('/EVN/media/Banners/GolemaELF_Play.jpg?ext=.jpg');"></div></a><a href="#" target="_blank"><div class="slide w-slide" style="background-image: url('/EVN/media/Banners/SkopjeDay.jpg?ext=.jpg');"></div></a>
+          </div>
+          <div class="w-slider-arrow-left">
+            <div class="w-icon-slider-left"></div>
+          </div>
+          <div class="w-slider-arrow-right">
+            <div class="w-icon-slider-right"></div>
+          </div>
+          <div class="slide-nav w-slider-nav w-round"></div>
+        </div>
+      </div>
+    <div class="hero-separator"></div>
+  </div>
+      <div class="qm-container">
+      <div class="qm-wrapper home">
+<a href="#s2"  class="qm-link-block w-inline-block"><img src="/EVN/media/Icons/Icon_Fakturi-r.svg?ext=.svg" loading="lazy" alt="" class="qm-icon-red"><img src="/EVN/media/Icons/Icon_Fakturi-w.svg?ext=.svg" loading="lazy" alt="" class="qm-icon-white">
+  <div class="qm-divider"></div>
+  <div class="qm-text">Сѐ за фактури</div>
+</a><a href="#s3"  class="qm-link-block w-inline-block"><img src="/EVN/media/Icons/Icon_Uslugi-r.svg?ext=.svg" loading="lazy" alt="" class="qm-icon-red"><img src="/EVN/media/Icons/Icon_Uslugi-w.svg?ext=.svg" loading="lazy" alt="" class="qm-icon-white">
+  <div class="qm-divider"></div>
+  <div class="qm-text">Услугите на едно место</div>
+</a><a href="#s4" target=_blank class="qm-link-block w-inline-block"><img src="/EVN/media/Icons/Icon_Korisnik-r.svg?ext=.svg" loading="lazy" alt="" class="qm-icon-red"><img src="/EVN/media/Icons/Icon_Korisnik-w.svg?ext=.svg" loading="lazy" alt="" class="qm-icon-white">
+  <div class="qm-divider"></div>
+  <div class="qm-text">Станете наш корисник</div>
+</a><a href="#s5"  class="qm-link-block w-inline-block"><img src="/EVN/media/Icons/Icon_Kontakt-r.svg?ext=.svg" loading="lazy" alt="" class="qm-icon-red"><img src="/EVN/media/Icons/Icon_Kontakt-w.svg?ext=.svg" loading="lazy" alt="" class="qm-icon-white">
+  <div class="qm-divider"></div>
+  <div class="qm-text">Зборувајте со нас</div>
+</a>
+      </div>
+    </div>
+</section>
+
+  <section id="s2" class="section-two home">
+    <div class="hero-container">
+      <div class="hero-wrapper">
+        <div class="hero-img-wrapper left imgS" style="background-image: url('/EVN/media/img/Se-za-fakturi-1200x800.jpg?ext=.jpg');"></div>
+        <div class="hero-text-wrapper right">
+          <h1 class="hero-headline">Сѐ за фактури</h1>
+          <div class="hero-paragraph">Објаснување на фактурите за електрична енергија и опции за нивно плаќање.</div>
+          <a href="/Invoices.aspx" class="hero-btn w-button" >Дознајте повеќе</a>
+        </div>
+      </div>
+    </div>
+  </section><section id="s3" class="section-two home">
+  <div class="hero-container">
+    <div class="hero-wrapper">
+      <div class="hero-img-wrapper right imgS" style="background-image: url('/EVN/media/img/Uslugite-na-edno-mesto-1200x800.jpg?ext=.jpg');"></div>
+      <div class="hero-text-wrapper left">
+        <h1 class="hero-headline">Услугите на едно место</h1>
+        <div class="hero-paragraph">Ви нудиме нови можности за подобрување на квалитетот на животот во вашиот дом.</div>
+        <a href="/Services.aspx" class="hero-btn w-button" >Дознајте повеќе</a>
+      </div>
+    </div>
+  </div>
+</section>  <section id="s5" class="section-two home">
+    <div class="hero-container">
+      <div class="hero-wrapper">
+        <div class="hero-img-wrapper left imgS" style="background-image: url('/getmedia/c0747eda-0a1b-4e44-b300-012dbad23288/Call-C.jpg.aspx?width=1200&height=668&ext=.jpg');"></div>
+        <div class="hero-text-wrapper right">
+          <h1 class="hero-headline">Зборувајте со нас</h1>
+          <div class="hero-paragraph">Повелете во нашите приемни канцеларии или јавете се во контакт центарот во било кое време од денот.</div>
+          <a href="/Contact.aspx" class="hero-btn w-button" >Дознајте повеќе</a>
+        </div>
+      </div>
+    </div>
+  </section><section id="s4" class="section-two home">
+  <div class="hero-container">
+    <div class="hero-wrapper">
+      <div class="hero-img-wrapper right imgS" style="background-image: url('/EVN/media/img/Stanete-nas-korisnik-1200x800.jpg?ext=.jpg');"></div>
+      <div class="hero-text-wrapper left">
+        <h1 class="hero-headline">Приклучување на мрежа</h1>
+        <div class="hero-paragraph">Информирајте се како да побарате нов приклучок на електродистрибутивната мрежа.&nbsp;</div>
+        <a href="https://www.elektrodistribucija.mk/Services/New-electricity-connection.aspx?lang=mk-mk" class="hero-btn w-button" target=_blank>Дознајте повеќе</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="section top-footer">
+  <div class="container top-footer">
+    
+<div class="tf-wrapper">
+  <a href="/Contact.aspx"  class="top-footer-icon-link w-inline-block" style="background-image: url('/EVN/media/Icons/pin-footer-icon.svg?ext=.svg'); width: 100px; height: 100px;"></a>
+  <a href="/Contact.aspx"  class="top-footer-link">Најдете нѐ<br /><strong>близу до вас</strong></a>
+  <br />
+  <a href=""  class="top-footer-link"></a>
+</div><div class="tf-wrapper">
+  <a href="https://evnonline.mk/auth/login" target=_blank class="top-footer-icon-link w-inline-block" style="background-image: url('/EVN/media/Icons/laptop-footer-icon.svg?ext=.svg'); width: 100px; height: 100px;"></a>
+  <a href="https://evnonline.mk/auth/login" target=_blank class="top-footer-link"><strong>Мој ЕВН Хоме</strong></a>
+  <br />
+  <a href="" target=_blank class="top-footer-link"></a>
+</div><div class="tf-wrapper">
+  <a href="/cdn-cgi/l/email-protection#9ef7f0f8f1defbe8f0b0f3f5" class="top-footer-icon-link w-inline-block" style="background-image: url('/EVN/media/Icons/mail-footer-icon.svg?ext=.svg'); width: 100px; height: 100px;"></a>
+  <a href="/cdn-cgi/l/email-protection#8fe6e1e9e0cfeaf9e1a1e2e4" class="top-footer-link"><strong><span class="__cf_email__" data-cfemail="1871767e77587d6e76367573">[email&#160;protected]</span></strong></a>
+  <br />
+  <a href=""  class="top-footer-link"></a>
+</div><div class="tf-wrapper">
+  <a href="tel:023205000 "  class="top-footer-icon-link w-inline-block" style="background-image: url('/EVN/media/Icons/phone-footer-icon.svg?ext=.svg'); width: 100px; height: 100px;"></a>
+  <a href="tel:023205000 "  class="top-footer-link">Информации<br /><strong>02/3205-000</strong></a>
+  <br />
+  <a href="tel:023205300 "  class="top-footer-link">Дефекти<br /><strong>02/3205-300</strong></a>
+</div>
+
+  </div>
+</div>
+<div class="section bottomr-copy">
+  <div class="container bottom-copy">
+    <div class="bf-link-wrapper">
+      
+<a href="#"  class="bottom-footer-link bold">Корисници</a><a href="/Invoices.aspx"  class="bottom-footer-link ">Плаќање и цени</a><a href="/Services.aspx"  class="bottom-footer-link ">Услуги</a><a href="https://www.elektrodistribucija.mk/Services/New-electricity-connection.aspx?lang=mk-mk" target=_blank class="bottom-footer-link ">Нов корисник</a><a href="/Contact.aspx"  class="bottom-footer-link ">Зборувај со нас</a>
+
+    </div>
+    <div class="bf-link-wrapper">
+      
+<a href="/TopMenu/About-Us.aspx"  class="bottom-footer-link bold">За нас</a><a href="/TopMenu/Career.aspx"  class="bottom-footer-link ">Кариера</a><a href="/TopMenu/Responsibility.aspx"  class="bottom-footer-link ">Одговорност</a><a href="/TopMenu/Media.aspx"  class="bottom-footer-link ">Медиуми</a><a href="/TopMenu/Procurements.aspx"  class="bottom-footer-link ">Набавки</a>
+
+    </div>
+    <div class="bf-link-wrapper">
+      
+<a href="/FAQ.aspx"  class="bottom-footer-link bold">Поддршка</a><a href="/AboutUs/Contact.aspx"  class="bottom-footer-link bold">Контакт</a><a href="/Special-pages/PrivacyPolicy.aspx"  class="bottom-footer-link bold">Политика за приватност</a>
+
+    </div>
+    <div class="bf-link-wrapper">
+      
+<a href="https://www.elektrodistribucija.mk/Grid/Planned-disconnections.aspx?lang=mk-mk" target=_blank class="bottom-footer-link bold">Планирани<br>прекини</a><a href="/Special-pages/PublicInformation.aspx"  class="bottom-footer-link bold">Инфoрмации <br>од јавен карактер</a>
+
+    </div>
+  </div>
+</div>
+<section class="copyright">
+  <div class="copyright-container">
+    <h5 class="copyright-text">© <div class='displayInline'><div id="time_p_lt_ctl15_DateTime" ></div></div>, EVN Home</h5>
+  </div>
+</section>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<script src="/CMSScripts/Custom/webflow.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="/CMSScripts/Custom/simple-lightbox.jquery.min.js"></script>
+<script src="/CMSScripts/Custom/tooltipster-for-webflow.js" type="text/javascript"></script>
+<script src="/CMSScripts/Custom/cookieBubble_mk-MK.js" type="text/javascript"></script>
+
+<script>
+  $(document).ready(function() {
+    var w = parseInt(window.innerWidth);
+    if(w > 767) {
+      var arrowButton = document.getElementById("ea24-arrow");
+      arrowButton.addEventListener('click', proxyWidgetButtonClick);
+      
+      hideWidgetButtons();
+      var hideInterval = setInterval(hideWidgetButtons, 300);
+      setTimeout(function () {
+          clearInterval(hideInterval);
+      }, 5000);
+      observeForWidgetButton();
+    }
+    
+    $(".w-webflow-badge").removeClass("w-webflow-badge").empty();
+    $("a.invoice-interactive").mouseenter(function()
+       {
+         $(this).children('[class*="box"]').css({"display":"block","z-index":"9999"});
+      }).mouseleave(function()
+      {
+          $(this).children('[class*="box"]').css({"display":"none","z-index":"auto"});
+      });
+    
+    $('.list').slick({
+      dots: false,
+      speed: 1000,
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      arrows: false,
+      touchThreshold:100,
+      responsive: [
+        {
+          // tablet
+          breakpoint: 991,
+          settings: {
+            slidesToShow: 2
+          }
+        },
+        {
+          // mobile portrait
+          breakpoint: 479,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
+    
+    $('.slider-prev').click(function(){
+        $(this).closest('.section').find(".list").slick('slickPrev');
+    });
+    
+    $('.slider-next').click(function(){
+        $(this).closest('.section').find(".list").slick('slickNext');
+    });    
+    
+    $('.w-dyn-item a').simpleLightbox();
+    
+  });
+  
+var Webflow = Webflow || [];
+Webflow.push(function() {
+    var figure = $("a.card.w-inline-block").hover(function() {  
+        $("a.card.w-inline-block").css("filter", "grayscale(0%)"); 
+    }, function() {
+        $("a.card.w-inline-block").css("filter", "grayscale(100%)");
+    }).each(function() {
+        $("a.card.w-inline-block").css("filter", "grayscale(100%)");
+    });
+});
+  
+</script>
+<script>
+  $('.is--1').on('click', function() {
+    $('.ee_01').addClass('is-hide');
+    $('.ee_02').addClass('is-hide');
+    $('.ee_03').addClass('is-hide');
+    $('.ee_04').addClass('is-hide');
+    $('.ee_05').addClass('is-hide');
+    $('.ee_06').addClass('is-hide');  
+    
+    $('.ee_01').removeClass('is-hide');
+    window.dispatchEvent(new Event('resize'));
+  });
+  $('.is--2').on('click', function() {
+    $('.ee_01').addClass('is-hide');
+    $('.ee_02').addClass('is-hide');
+    $('.ee_03').addClass('is-hide');
+    $('.ee_04').addClass('is-hide');
+    $('.ee_05').addClass('is-hide');
+    $('.ee_06').addClass('is-hide');  
+    
+    $('.ee_02').removeClass('is-hide');
+    window.dispatchEvent(new Event('resize'));
+  });
+  $('.is--3').on('click', function() {
+    $('.ee_01').addClass('is-hide');
+    $('.ee_02').addClass('is-hide');
+    $('.ee_03').addClass('is-hide');
+    $('.ee_04').addClass('is-hide');
+    $('.ee_05').addClass('is-hide');
+    $('.ee_06').addClass('is-hide');  
+    
+    $('.ee_03').removeClass('is-hide');
+    window.dispatchEvent(new Event('resize'));
+  });
+  $('.is--4').on('click', function() {
+    $('.ee_01').addClass('is-hide');
+    $('.ee_02').addClass('is-hide');
+    $('.ee_03').addClass('is-hide');
+    $('.ee_04').addClass('is-hide');
+    $('.ee_05').addClass('is-hide');
+    $('.ee_06').addClass('is-hide');  
+    
+    $('.ee_04').removeClass('is-hide');
+    window.dispatchEvent(new Event('resize'));
+  });
+  $('.is--5').on('click', function() {
+    $('.ee_01').addClass('is-hide');
+    $('.ee_02').addClass('is-hide');
+    $('.ee_03').addClass('is-hide');
+    $('.ee_04').addClass('is-hide');
+    $('.ee_05').addClass('is-hide');
+    $('.ee_06').addClass('is-hide');  
+    
+    $('.ee_05').removeClass('is-hide');
+    window.dispatchEvent(new Event('resize'));
+  });
+  $('.is--6').on('click', function() {
+    $('.ee_01').addClass('is-hide');
+    $('.ee_02').addClass('is-hide');
+    $('.ee_03').addClass('is-hide');
+    $('.ee_04').addClass('is-hide');
+    $('.ee_05').addClass('is-hide');
+    $('.ee_06').addClass('is-hide');  
+    
+    $('.ee_06').removeClass('is-hide');
+    window.dispatchEvent(new Event('resize'));
+  });  
+</script>
+ <script>
+// when the DOM is ready
+$(document).ready(function() {
+  // get the anchor link buttons
+  const menuBtn = $('.link-block-2');
+  // when each button is clicked
+  menuBtn.click(()=>{	
+    // set a short timeout before taking action
+    // so as to allow hash to be set
+    setTimeout(()=>{
+      // call removeHash function after set timeout
+      removeHash();
+    }, 5); // 5 millisecond timeout in this case
+  });
+  // removeHash function
+  // uses HTML5 history API to manipulate the location bar
+  function removeHash(){
+    history.replaceState('', document.title, window.location.origin + window.location.pathname + window.location.search);
+  }
+});
+</script>
+<script>
+    (function ($) {
+            $.cookieBubble({
+              cookiePolicyButtonUrl:"/Special-pages/PrivacyPolicy.aspx",
+            });
+    })(jQuery);
+</script>
+<script>
+  function hideWidgetButtons() {
+      var matches = document.querySelectorAll('.ea24-open-widget-btn');
+      if (!matches.length) {
+          return false;
+      }
+      matches.forEach(function (widgetButton) {
+          if (!(widgetButton instanceof HTMLElement)) {
+              return;
+          }
+          widgetButton.style.setProperty('display', 'none', 'important');
+          widgetButton.style.setProperty('visibility', 'hidden', 'important');
+          widgetButton.style.setProperty('opacity', '0', 'important');
+          widgetButton.style.setProperty('pointer-events', 'none', 'important');
+      });
+      return true;
+  }
+    
+  function triggerWidgetClick(widgetButton) {
+      if (!(widgetButton instanceof HTMLElement)) {
+          return;
+      }
+      if (typeof widgetButton.onclick === 'function') {
+          widgetButton.onclick();
+      } else {
+          widgetButton.click();
+      }
+  }
+    
+  function proxyWidgetButtonClick(event) {
+      event.preventDefault();
+      hideWidgetButtons();
+      var widgetButton = document.querySelector('.ea24-open-widget-btn');
+      triggerWidgetClick(widgetButton);
+  }
+    
+  function observeForWidgetButton() {
+      var observer = new MutationObserver(function () {
+          hideWidgetButtons();
+      });
+
+      observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+      });
+  }
+</script>
+    
+    
+
+<script type="text/javascript">
+	//<![CDATA[
+WebServiceCall('/cmsapi/webanalytics', 'LogHit', '{"NodeAliasPath":"/Home","DocumentCultureCode":"mk-MK","UrlReferrer":""}')
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+var callBackFrameUrl='/WebResource.axd?d=beToSAE3vdsL1QUQUxjWdS1g6QRJabKx9RFej0Sg5a-rAvmmGs3G6_otcYBeG-vfG6e2IK0pBbJ3LM83zav0WQ2&t=637461017481343508';
+WebForm_InitCallback();
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+</body>
+</html>

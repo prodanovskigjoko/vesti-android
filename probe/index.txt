@@ -1,0 +1,9 @@
+home1 https://elektrodistribucija.mk/ -> 200 https://elektrodistribucija.mk/
+home2 https://www.elektrodistribucija.mk/ -> 200 https://elektrodistribucija.mk/
+home3 https://www.evn.mk/ -> 200 https://www.evn.mk/
+home4 https://snabduvanje.evn.mk/ -> 200 https://snabduvanje.evn.mk/Home.aspx
+home5 https://www.vodovod-skopje.com.mk/ -> 200 https://www.vodovod-skopje.com.mk/
+home6 https://vodovod-skopje.com.mk/ -> 200 https://vodovod-skopje.com.mk/
+cand1 /Grid/OutagesMap.aspx -> 000 ERR
+cand2 /mk-MK/article/INFORMACIIIZAPREKINNAVODOSNABDUVANjEIDEFEKTI_1 -> 000 ERR
+cand3 https://vodovod-skopje.com.mk/mk-MK/article/INFORMACIIIZAPREKINNAVODOSNABDUVANjEIDEFEKTI_1 -> 200 https://vodovod-skopje.com.mk/mk-MK/article/INFORMACIIIZAPREKINNAVODOSNABDUVANjEIDEFEKTI_1
