@@ -21,16 +21,9 @@ jobs:
             echo "$1 $2 -> $code" | tee -a probe/index.txt
           }
           rm -f probe/*
-          fetch evn_map https://elektrodistribucija.mk/Grid/OutagesMap.aspx
-          fetch evn_map_mk "https://elektrodistribucija.mk/Grid/OutagesMap.aspx?lang=mk-mk"
-          fetch evn_announcements https://elektrodistribucija.mk/Media/Public-announcements.aspx
-          # Script and API references inside the outage map, to find the data endpoint.
-          grep -hoiE '(src|href)="[^"]+\.js[^"]*"|https?://[^"'"'"' ]+(api|json|outage|isklu)[^"'"'"' ]*|/[A-Za-z0-9_/.-]*(Outage|outage|Api|api|Handler|ashx|asmx|svc)[^"'"'"' ]*' probe/evn_map*.html | sort -u > probe/evn_refs.txt || true
-          n=0
-          grep -oE '(src)="[^"]+\.js[^"]*"' probe/evn_map.html | sed -E 's/src="([^"]+)"/\1/' | grep -viE 'jquery|bootstrap|google|gtag|cloudflare' | head -8 | while read -r js; do
-            n=$((n+1)); case "$js" in http*) u="$js";; *) u="https://elektrodistribucija.mk$js";; esac
-            fetch "evn_js$n" "$u"
-          done
+          curl -sL -m 30 -A "$UA" -H "Accept: application/json" -H "Origin: https://elektrodistribucija.mk" -H "Referer: https://elektrodistribucija.mk/Grid/OutagesMap.aspx" \
+            -o probe/evn_outages.json -w "%{http_code} %{content_type}\n" https://portal-api.elektrodistribucija.mk/DSO/Prekini/ZemiPrekini | tee probe/index.txt
+          python3 -c "import json;d=json.load(open('probe/evn_outages.json'));print(type(d).__name__, len(d));print(json.dumps(d[:5],ensure_ascii=False,indent=1))" | tee -a probe/index.txt || head -c 2000 probe/evn_outages.json
           ls -la probe
       - name: Save results on this branch
         run: |
