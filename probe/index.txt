@@ -1,11 +1,54 @@
-evn_map https://elektrodistribucija.mk/Grid/OutagesMap.aspx -> 200 https://elektrodistribucija.mk/Grid/OutagesMap.aspx
-evn_map_mk https://elektrodistribucija.mk/Grid/OutagesMap.aspx?lang=mk-mk -> 200 https://elektrodistribucija.mk/Grid/OutagesMap.aspx?lang=mk-mk
-evn_announcements https://elektrodistribucija.mk/Media/Public-announcements.aspx -> 200 https://elektrodistribucija.mk/Media/Public-announcements.aspx
-evn_js1 https://elektrodistribucija.mk~/CMSScripts/Custom/DSO/modernizr-2.6.2-respond-1.1.0.min.js -> 000 https://elektrodistribucija.mk~/CMSScripts/Custom/DSO/modernizr-2.6.2-respond-1.1.0.min.jsERR
-evn_js2 https://elektrodistribucija.mk/CMSPages/GetResource.ashx?scriptfile=%7e%2fCMSWebParts%2fViewers%2fDateTime_files%2fDateTime.js -> 200 https://elektrodistribucija.mk/CMSPages/GetResource.ashx?scriptfile=%7e%2fCMSWebParts%2fViewers%2fDateTime_files%2fDateTime.js
-evn_js3 https://cdn.datatables.net/2.1.8/js/dataTables.js -> 200 https://cdn.datatables.net/2.1.8/js/dataTables.js
-evn_js4 https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js -> 200 https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js
-evn_js5 https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js -> 200 https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js
-evn_js6 https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js -> 200 https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js
-evn_js7 https://cdn.datatables.net/responsive/3.0.3/js/responsive.dataTables.js -> 200 https://cdn.datatables.net/responsive/3.0.3/js/responsive.dataTables.js
-evn_js8 https://elektrodistribucija.mk/CMSScripts/Custom/DSO/newsTicker.js -> 200 https://elektrodistribucija.mk/CMSScripts/Custom/DSO/newsTicker.js
+200 application/json; charset=utf-8
+list 113
+[
+ {
+  "prekinID": "421073e8-b2f2-4c6e-b66a-58505f715621",
+  "kecId": 13,
+  "tipPrekin": "Планиран прекин",
+  "nasMesto": "БИТОЛА-МАГАРЕВО",
+  "adresa": "С.ДИХОВО, С.МАГАРЕВО, С.ТРНОВО, МОЛИКА , КОПАНКИ СО ОКОЛНИТЕ ОБЈЕКТИ",
+  "pocetok": "2026-10-29T07:50:05",
+  "kraj": "2026-10-29T12:00:15",
+  "napNivo": "10 kV"
+ },
+ {
+  "prekinID": "189cb4b1-41d7-4071-98a4-70588f5ab37f",
+  "kecId": 13,
+  "tipPrekin": "Планиран прекин",
+  "nasMesto": "БИТОЛА",
+  "adresa": "УЛ.МИЛТОН МАНАКИ, ДЕЛ ОД УЛ.ПАРТИЗАНСКА , УЛ.СТАЛЕ ПОПОВ, УЛ.СОТИР БРБЕВСКИ , УЛ.12 КЛАДЕНЦИ СО ОКОЛНИТЕ ОБЈЕКТИ.",
+  "pocetok": "2026-10-29T07:55:56",
+  "kraj": "2026-10-29T11:00:06",
+  "napNivo": "0.4 kV"
+ },
+ {
+  "prekinID": "b7aa4c6d-51b3-47c6-9b8c-c32ae21b0a61",
+  "kecId": 16,
+  "tipPrekin": "Планиран прекин",
+  "nasMesto": "КУМАНОВО-ТАБАНОВЦЕ",
+  "adresa": "М.В ЧИФЛИК, С.ТАБАНОВЦЕ .",
+  "pocetok": "2026-10-29T08:00:09",
+  "kraj": "2026-10-29T15:00:20",
+  "napNivo": "0.4 kV"
+ },
+ {
+  "prekinID": "b0d1203c-1288-400c-90a0-32151ff52f5a",
+  "kecId": 35,
+  "tipPrekin": "Планиран прекин",
+  "nasMesto": "КРАТОВО-КОЈКОВО",
+  "adresa": "ПОРАДИ ИНТЕРВЕНЦИЈА ВО МРЕЖАТА БЕЗ НАПОЈУВАЊЕ СО ЕЕ ЌЕ БИДАТ С.СТАРО МУШКОВО, С.КОЈКОВО, С.КАВРАК, С.КНЕЖЕВО И С.ЕМИРИЦА.",
+  "pocetok": "2026-10-29T08:00:12",
+  "kraj": "2026-10-29T15:00:20",
+  "napNivo": "10 kV"
+ },
+ {
+  "prekinID": "3c1f19b4-4083-45b9-9fbb-c790b28b82c2",
+  "kecId": 16,
+  "tipPrekin": "Планиран прекин",
+  "nasMesto": "КУМАНОВО",
+  "adresa": "УЛ. ОСОГОВО, ДЕЛ ОД УЛ. БОРО ПРЦАН, ДОЛ ОД УЛ. 11-ТИ НОЕМВРИ ПРЕД МОСТОТ ЗА БЕДИЊЕ, ДЕЛ ОД УЛ. СРБО ТОМОВИЌ",
+  "pocetok": "2026-10-29T08:00:21",
+  "kraj": "2026-10-29T14:30:29",
+  "napNivo": "0.4 kV"
+ }
+]
