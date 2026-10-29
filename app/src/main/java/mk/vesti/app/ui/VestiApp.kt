@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 fun VestiApp(vm: NewsViewModel) {
     val state by vm.state.collectAsStateWithLifecycle()
     val favorites by vm.favorites.collectAsStateWithLifecycle()
+    val addresses by vm.addresses.collectAsStateWithLifecycle()
     val feedListState = rememberLazyListState()
 
     BackHandler(enabled = state.backStack.isNotEmpty()) { vm.back() }
@@ -39,6 +40,8 @@ fun VestiApp(vm: NewsViewModel) {
                 onOpen = { vm.open(Screen.StoryDetail(it)) },
                 onOpenFavorites = { vm.open(Screen.Favorites) },
                 onOpenAbout = { vm.open(Screen.About) },
+                onOpenOutages = { vm.open(Screen.Outages) },
+                hasAddresses = addresses.isNotEmpty(),
                 onLoadMore = vm::loadMore,
                 listState = feedListState,
             )
@@ -56,6 +59,14 @@ fun VestiApp(vm: NewsViewModel) {
                 onBack = vm::back,
             )
             Screen.About -> AboutScreen(onOpen = { vm.open(Screen.Legal(it)) }, onBack = vm::back)
+            Screen.Outages -> OutagesScreen(
+                addresses = addresses,
+                outages = state.outages,
+                loaded = state.outagesLoaded,
+                onAdd = vm::addAddress,
+                onRemove = vm::removeAddress,
+                onBack = vm::back,
+            )
             is Screen.Legal -> LegalScreen(screen.document, onBack = vm::back)
         }
     }

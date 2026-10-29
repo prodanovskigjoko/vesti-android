@@ -9,9 +9,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import mk.vesti.app.data.NewsRepository
 import mk.vesti.app.data.FavoritesRepository
+import mk.vesti.app.data.OutagesRepository
 import mk.vesti.app.data.Widgets
 import mk.vesti.app.data.WidgetsRepository
 import mk.vesti.core.Category
+import mk.vesti.core.Outage
+import mk.vesti.core.OutageMatch
+import mk.vesti.core.OutageMatcher
+import mk.vesti.core.SavedAddress
 import mk.vesti.core.Story
 
 /** The chips above the feed: the ranked front page, newest first, or one category. */
@@ -40,6 +45,7 @@ sealed interface Screen {
     data class StoryDetail(val story: Story) : Screen
     data object Favorites : Screen
     data object About : Screen
+    data object Outages : Screen
     data class Legal(val document: LegalDocument) : Screen
 }
 
@@ -56,6 +62,10 @@ data class NewsUiState(
     val failedSources: List<String> = emptyList(),
     val error: String? = null,
     val widgets: Widgets = Widgets(),
+    /** Planned power cuts on the saved addresses, soonest first. */
+    val outages: List<OutageMatch> = emptyList(),
+    /** Null until EVN has answered; false when the last fetch failed. */
+    val outagesLoaded: Boolean? = null,
 ) {
     val screen: Screen get() = backStack.lastOrNull() ?: Screen.Feed
 
@@ -81,6 +91,11 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
     private val favoritesRepository = FavoritesRepository(app)
     private val widgetsRepository = WidgetsRepository()
     val favorites: StateFlow<Set<String>> = favoritesRepository.sources
+    private val outagesRepository = OutagesRepository(app)
+    val addresses: StateFlow<List<SavedAddress>> = outagesRepository.addresses
+
+    /** EVN's last list, kept so adding an address re-matches without another download. */
+    private var allOutages: List<Outage> = emptyList()
 
     private val _state = MutableStateFlow(NewsUiState(loading = true))
     val state: StateFlow<NewsUiState> = _state
@@ -102,6 +117,11 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             val widgets = widgetsRepository.load()
             _state.update { it.copy(widgets = widgets) }
+        }
+        viewModelScope.launch {
+            runCatching { outagesRepository.fetch() }
+                .onSuccess { allOutages = it; rematch(loaded = true) }
+                .onFailure { rematch(loaded = false) }
         }
         viewModelScope.launch {
             runCatching { repository.load() }
@@ -145,4 +165,21 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun toggleFavorite(source: String) = favoritesRepository.toggle(source)
+
+    fun openOutages() = _state.update { it.copy(backStack = listOf(Screen.Outages)) }
+
+    fun addAddress(address: SavedAddress) {
+        outagesRepository.add(address)
+        rematch(_state.value.outagesLoaded)
+    }
+
+    fun removeAddress(address: SavedAddress) {
+        outagesRepository.remove(address)
+        rematch(_state.value.outagesLoaded)
+    }
+
+    private fun rematch(loaded: Boolean?) {
+        val matches = OutageMatcher().match(allOutages, addresses.value, OutagesRepository.now())
+        _state.update { it.copy(outages = matches, outagesLoaded = loaded) }
+    }
 }

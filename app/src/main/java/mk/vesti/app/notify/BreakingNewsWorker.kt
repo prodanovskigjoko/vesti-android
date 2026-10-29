@@ -1,17 +1,11 @@
 package mk.vesti.app.notify
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -49,12 +43,10 @@ class BreakingNewsWorker(context: Context, params: WorkerParameters) : Coroutine
         return Result.success()
     }
 
-    @SuppressLint("MissingPermission") // checked at the top for Android 13+
+    @SuppressLint("MissingPermission") // canNotify checks it on Android 13+
     private fun post(story: Story) {
         val ctx = applicationContext
-        if (Build.VERSION.SDK_INT >= 33 &&
-            ContextCompat.checkSelfPermission(ctx, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
-        ) return
+        if (!canNotify(ctx)) return
         ensureChannel(ctx)
         val open = PendingIntent.getActivity(
             ctx,
@@ -93,24 +85,8 @@ class BreakingNewsWorker(context: Context, params: WorkerParameters) : Coroutine
                 .enqueueUniquePeriodicWork(UNIQUE_NAME, ExistingPeriodicWorkPolicy.KEEP, request)
         }
 
-        /** The full-colour app icon (red circle, white "В") shown beside the notification text. */
-        private fun appIcon(context: Context): Bitmap {
-            val size = (64 * context.resources.displayMetrics.density).toInt()
-            val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = ContextCompat.getColor(context, R.color.ic_launcher_background)
-            }
-            canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint)
-            ContextCompat.getDrawable(context, R.drawable.ic_launcher_foreground)?.apply {
-                setBounds(0, 0, size, size)
-                draw(canvas)
-            }
-            return bitmap
-        }
-
         private fun ensureChannel(context: Context) {
-                val channel = NotificationChannel(CHANNEL_ID, "Големи вести", NotificationManager.IMPORTANCE_HIGH)
+            val channel = NotificationChannel(CHANNEL_ID, "Големи вести", NotificationManager.IMPORTANCE_HIGH)
                 .apply { description = "Кога 5 или повеќе медиуми пишуваат за истата вест" }
             context.getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
         }

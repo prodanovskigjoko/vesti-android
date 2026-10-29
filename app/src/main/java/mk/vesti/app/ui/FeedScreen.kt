@@ -69,6 +69,8 @@ fun FeedScreen(
     onOpen: (Story) -> Unit,
     onOpenFavorites: () -> Unit,
     onOpenAbout: () -> Unit,
+    onOpenOutages: () -> Unit,
+    hasAddresses: Boolean,
     onLoadMore: () -> Unit,
     /** Hoisted so the scroll position survives opening a story and coming back. */
     listState: LazyListState = rememberLazyListState(),
@@ -98,7 +100,7 @@ fun FeedScreen(
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
                 item { Header(favoriteCount, onOpenFavorites, onOpenAbout) }
-                item { WidgetsRow(state.widgets) }
+                item { WidgetsRow(state.widgets, state.outages, hasAddresses, onOpenOutages) }
                 stickyHeader {
                     TabChips(state.tab) { tab ->
                         onTab(tab)

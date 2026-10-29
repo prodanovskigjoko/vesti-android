@@ -1,6 +1,7 @@
 package mk.vesti.app.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,34 +30,38 @@ import mk.vesti.app.data.Fuel
 import mk.vesti.app.data.Rate
 import mk.vesti.app.data.Weather
 import mk.vesti.app.data.Widgets
+import mk.vesti.app.data.outageWhen
 import mk.vesti.app.data.weatherLabel
+import mk.vesti.core.OutageMatch
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 private val CardWidth = 210.dp
 private val CardHeight = 140.dp
 
-/** Weather, fuel prices and exchange rates, side by side above the stories. */
+/** Weather, power cuts, fuel prices and exchange rates, side by side above the stories. */
 @Composable
-fun WidgetsRow(widgets: Widgets) {
+fun WidgetsRow(widgets: Widgets, outages: List<OutageMatch>, hasAddresses: Boolean, onOpenOutages: () -> Unit) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         item { WeatherCard(widgets.weather) }
+        item { PowerCard(outages, hasAddresses, onOpenOutages) }
         widgets.fuel?.let { fuel -> item { FuelCard(fuel) } }
         if (widgets.rates.isNotEmpty()) item { RatesCard(widgets.rates) }
     }
 }
 
 @Composable
-private fun WidgetCard(background: Brush, content: @Composable () -> Unit) {
+private fun WidgetCard(background: Brush, onClick: (() -> Unit)? = null, content: @Composable () -> Unit) {
     Box(
         Modifier
             .width(CardWidth)
             .height(CardHeight)
             .clip(MaterialTheme.shapes.medium)
             .background(background)
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .padding(14.dp),
     ) { content() }
 }
@@ -82,6 +87,43 @@ private fun WeatherCard(weather: Weather?) {
                 style = MaterialTheme.typography.labelMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+            )
+        }
+    }
+}
+
+@Composable
+private fun PowerCard(outages: List<OutageMatch>, hasAddresses: Boolean, onClick: () -> Unit) {
+    WidgetCard(Brush.linearGradient(listOf(Color(0xFF434343), Color(0xFF1F1C2C))), onClick) {
+        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
+            Text("⚡ ПРЕКИНИ НА СТРУЈА", color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.labelSmall)
+            val next = outages.firstOrNull()
+            when {
+                !hasAddresses -> Text(
+                    "Додај ја твојата адреса и ќе те известиме ден однапред",
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                next == null -> Text("Нема планирани прекини на твоите адреси", color = Color.White, style = MaterialTheme.typography.titleSmall)
+                else -> Column {
+                    Text(next.address.label, color = Color(0xFFFFC857), fontWeight = FontWeight.Bold)
+                    Text(
+                        outageWhen(next.outage).replaceFirstChar { it.uppercase() },
+                        color = Color.White,
+                        style = MaterialTheme.typography.labelMedium,
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+            Text(
+                when {
+                    !hasAddresses -> "Додај адреса ›"
+                    outages.size > 1 -> "Уште ${outages.size - 1} ›"
+                    else -> "Мои адреси ›"
+                },
+                color = Color.White.copy(alpha = 0.85f),
+                style = MaterialTheme.typography.labelMedium,
             )
         }
     }
