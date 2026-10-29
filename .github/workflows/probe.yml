@@ -1,0 +1,48 @@
+name: Probe outage pages
+
+on:
+  push:
+    branches: [probe-outages]
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch EVN and Vodovod pages
+        run: |
+          mkdir -p probe
+          UA="Mozilla/5.0 (Linux; Android 14) VestiProbe/0.1"
+          fetch() { # name url
+            code=$(curl -sL -m 30 -A "$UA" -o "probe/$1.html" -w "%{http_code} %{url_effective}" "$2" || echo "ERR")
+            echo "$1 $2 -> $code" | tee -a probe/index.txt
+          }
+          i=0
+          for url in \
+            https://elektrodistribucija.mk/ \
+            https://www.elektrodistribucija.mk/ \
+            https://www.evn.mk/ \
+            https://snabduvanje.evn.mk/ \
+            https://www.vodovod-skopje.com.mk/ \
+            https://vodovod-skopje.com.mk/ ; do
+            i=$((i+1)); fetch "home$i" "$url"
+          done
+          # Follow links that look like outage notices from every home page.
+          grep -hoiE 'href="[^"]+"' probe/home*.html | sed -E 's/href="([^"]+)"/\1/I' | sort -u > probe/links.txt || true
+          grep -iE 'isklu|iskluc|prekin|izvest|planir|%D0%B8%D1%81%D0%BA%D0%BB|%D0%BF%D1%80%D0%B5%D0%BA|outage|ispad|isklj' probe/links.txt > probe/candidates.txt || true
+          n=0
+          while read -r link && [ $n -lt 25 ]; do
+            n=$((n+1))
+            fetch "cand$n" "$link"
+          done < probe/candidates.txt
+          ls -la probe
+      - name: Save results on this branch
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add probe
+          git commit -m "Probe results [skip ci]" || exit 0
+          git push
