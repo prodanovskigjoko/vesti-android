@@ -1,8 +1,12 @@
 package mk.vesti.app.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,6 +23,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -40,8 +46,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import mk.vesti.app.R
+
+private const val CONTACT_EMAIL = "vestivestimk@gmail.com"
+private const val WEBSITE = "https://prodanovskigjoko.github.io/vesti-android/"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +67,7 @@ private fun SimpleTopBar(title: String, onBack: () -> Unit) {
     )
 }
 
-/** App name, version and the legal documents. */
+/** App name, version, how to reach the developer, and the legal documents. */
 @Composable
 fun AboutScreen(onOpen: (LegalDocument) -> Unit, onBack: () -> Unit) {
     val context = LocalContext.current
@@ -69,7 +79,7 @@ fun AboutScreen(onOpen: (LegalDocument) -> Unit, onBack: () -> Unit) {
         containerColor = MaterialTheme.colorScheme.background,
         topBar = { SimpleTopBar("За апликацијата", onBack) },
     ) { padding ->
-        Column(Modifier.padding(padding).fillMaxSize().padding(16.dp)) {
+        Column(Modifier.padding(padding).fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
             Column(Modifier.fillMaxWidth().padding(vertical = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 // The launcher icon is adaptive (not drawable by Compose), so rebuild it from its layers.
                 Image(
@@ -88,6 +98,25 @@ fun AboutScreen(onOpen: (LegalDocument) -> Unit, onBack: () -> Unit) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
+            SectionLabel("Контакт / Contact us")
+            Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = MaterialTheme.shapes.medium) {
+                Column {
+                    ContactRow(Icons.Outlined.Email, "Е-пошта", CONTACT_EMAIL) {
+                        context.startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$CONTACT_EMAIL")))
+                    }
+                    HorizontalDivider(Modifier.padding(horizontal = 16.dp), color = MaterialTheme.colorScheme.outlineVariant)
+                    ContactRow(Icons.Outlined.Home, "Веб-страница", WEBSITE.removePrefix("https://")) {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(WEBSITE)))
+                    }
+                }
+            }
+            Text(
+                "За прашања, предлози или ако сте медиум што сака да се тргне од апликацијата, пишете ни.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
+            )
+            SectionLabel("Правни информации")
             Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = MaterialTheme.shapes.medium) {
                 Column {
                     LinkRow(PrivacyPolicy.title) { onOpen(PrivacyPolicy) }
@@ -95,6 +124,31 @@ fun AboutScreen(onOpen: (LegalDocument) -> Unit, onBack: () -> Unit) {
                     LinkRow(TermsOfUse.title) { onOpen(TermsOfUse) }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun SectionLabel(text: String) {
+    Text(
+        text,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(start = 4.dp, top = 12.dp, bottom = 8.dp),
+    )
+}
+
+@Composable
+private fun ContactRow(icon: ImageVector, label: String, value: String, onClick: () -> Unit) {
+    Row(
+        Modifier.fillMaxWidth().clickable(onClick = onClick).padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+        Spacer(Modifier.width(14.dp))
+        Column(Modifier.weight(1f)) {
+            Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(value, style = MaterialTheme.typography.titleMedium)
         }
     }
 }

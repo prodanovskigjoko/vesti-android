@@ -154,7 +154,7 @@ private fun Header(favoriteCount: Int, onOpenFavorites: () -> Unit, onOpenAbout:
             Text("Вести", style = MaterialTheme.typography.displaySmall)
         }
         IconButton(onClick = onOpenAbout, modifier = Modifier.padding(bottom = 6.dp)) {
-            Icon(Icons.Outlined.Info, contentDescription = "За апликацијата")
+            Icon(Icons.Outlined.Info, contentDescription = "За апликацијата и контакт")
         }
         BadgedBox(
             badge = { if (favoriteCount > 0) Badge { Text("$favoriteCount") } },
