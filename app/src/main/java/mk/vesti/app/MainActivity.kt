@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         // Power-cut alerts were in a test build; stop their background check on phones that installed it.
         WorkManager.getInstance(this).cancelUniqueWork("power-outages")
         if (savedInstanceState == null) {
-            if (Build.VERSION.SDK_INT >= 33) notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+            if (Build.VERSION.SDK_INT >= 33 && BreakingNewsWorker.isEnabled(this)) notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
             vm.openFromNotification(intent.getStringExtra(EXTRA_STORY_LINK))
         }
         setContent {

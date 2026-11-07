@@ -2,6 +2,7 @@ package mk.vesti.app.ui
 
 import android.content.Intent
 import android.net.Uri
+import android.provider.Settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -32,10 +34,17 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.core.app.NotificationManagerCompat
+import mk.vesti.app.notify.BreakingNewsWorker
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -67,17 +76,18 @@ private fun SimpleTopBar(title: String, onBack: () -> Unit) {
     )
 }
 
-/** App name, version, how to reach the developer, and the legal documents. */
+/** App name, version, the notifications switch, how to reach the developer, and the legal documents. */
 @Composable
 fun AboutScreen(onOpen: (LegalDocument) -> Unit, onBack: () -> Unit) {
     val context = LocalContext.current
     val version = runCatching {
         context.packageManager.getPackageInfo(context.packageName, 0).versionName
     }.getOrNull().orEmpty()
+    var notifications by remember { mutableStateOf(BreakingNewsWorker.isEnabled(context)) }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
-        topBar = { SimpleTopBar("За апликацијата", onBack) },
+        topBar = { SimpleTopBar("Поставки", onBack) },
     ) { padding ->
         Column(Modifier.padding(padding).fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
             Column(Modifier.fillMaxWidth().padding(vertical = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -97,6 +107,38 @@ fun AboutScreen(onOpen: (LegalDocument) -> Unit, onBack: () -> Unit) {
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+            }
+            SectionLabel("Известувања")
+            Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = MaterialTheme.shapes.medium) {
+                Row(
+                    Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(Icons.Outlined.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                    Spacer(Modifier.width(14.dp))
+                    Column(Modifier.weight(1f)) {
+                        Text("Големи вести", style = MaterialTheme.typography.titleMedium)
+                        Text(
+                            "Кога 5 или повеќе медиуми пишуваат за иста вест",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    Switch(
+                        checked = notifications,
+                        onCheckedChange = { on ->
+                            notifications = on
+                            BreakingNewsWorker.setEnabled(context, on)
+                            // Turned on in the app but blocked by Android: send the reader to the system switch.
+                            if (on && !NotificationManagerCompat.from(context).areNotificationsEnabled()) {
+                                context.startActivity(
+                                    Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                                        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName),
+                                )
+                            }
+                        },
+                    )
+                }
             }
             SectionLabel("Контакт / Contact us")
             Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = MaterialTheme.shapes.medium) {

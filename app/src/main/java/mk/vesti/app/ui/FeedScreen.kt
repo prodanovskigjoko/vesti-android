@@ -26,7 +26,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
@@ -154,7 +154,7 @@ private fun Header(favoriteCount: Int, onOpenFavorites: () -> Unit, onOpenAbout:
             Text("Вести", style = MaterialTheme.typography.displaySmall)
         }
         IconButton(onClick = onOpenAbout, modifier = Modifier.padding(bottom = 6.dp)) {
-            Icon(Icons.Outlined.Info, contentDescription = "За апликацијата и контакт")
+            Icon(Icons.Outlined.Settings, contentDescription = "Поставки и контакт")
         }
         BadgedBox(
             badge = { if (favoriteCount > 0) Badge { Text("$favoriteCount") } },

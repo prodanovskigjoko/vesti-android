@@ -83,9 +83,20 @@ class BreakingNewsWorker(context: Context, params: WorkerParameters) : Coroutine
         private const val CHANNEL_ID = "breaking"
         private const val PREFS = "notifications"
         private const val KEY_LINKS = "notified_links"
+        private const val KEY_ENABLED = "enabled"
         private const val MAX_PER_RUN = 2
 
+        /** The reader's in-app switch; on by default. */
+        fun isEnabled(context: Context): Boolean =
+            context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean(KEY_ENABLED, true)
+
+        fun setEnabled(context: Context, enabled: Boolean) {
+            context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putBoolean(KEY_ENABLED, enabled).apply()
+            if (enabled) schedule(context) else WorkManager.getInstance(context).cancelUniqueWork(UNIQUE_NAME)
+        }
+
         fun schedule(context: Context) {
+            if (!isEnabled(context)) return
             val request = PeriodicWorkRequestBuilder<BreakingNewsWorker>(30, TimeUnit.MINUTES)
                 .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
                 .build()
