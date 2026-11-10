@@ -22,5 +22,6 @@ val DefaultSources: List<FeedSource> = listOf(
     FeedSource("Нетпрес", "https://netpress.com.mk/feed/"),
     FeedSource("Либертас", "https://www.libertas.mk/feed/"),
     FeedSource("Радио МОФ", "https://www.radiomof.mk/feed/"),
+    FeedSource("Точка", "https://tocka.com.mk/rss"),
     FeedSource("Спорт1", "https://sport1.mk/feed/", Category.SPORT),
 )

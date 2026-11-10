@@ -47,4 +47,10 @@ class RssParserTest {
         assertEquals(Category.SPORT, a.category)
         assertNotNull(a.publishedAt.takeIf { it > 0 })
     }
+
+    @Test
+    fun readsZonelessLocalDatesAsSkopjeTime() {
+        // Точка: "2026-11-10 11:40:00" is 10:40 UTC (CET, UTC+1).
+        assertEquals(1_794_268_800_000L + 10 * 3_600_000L + 40 * 60_000L, RssParser.parseDate("2026-11-10 11:40:00"))
+    }
 }

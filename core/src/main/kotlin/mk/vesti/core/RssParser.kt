@@ -1,7 +1,9 @@
 package mk.vesti.core
 
 import org.xmlpull.v1.XmlPullParser
+import java.time.LocalDateTime
 import java.time.OffsetDateTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -107,11 +109,16 @@ class RssParser {
         private val rfc822 = listOf("d MMM yyyy HH:mm[:ss] Z", "d MMM yyyy HH:mm[:ss] zzz")
             .map { DateTimeFormatter.ofPattern(it, Locale.ENGLISH) }
 
+        private val localDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm[:ss]")
+        private val SKOPJE = ZoneId.of("Europe/Skopje")
+
         fun parseDate(text: String): Long? {
             val s = text.trim()
             runCatching { return OffsetDateTime.parse(s).toInstant().toEpochMilli() }
             val noWeekday = s.substringAfter(", ").replace(Regex("\\s+"), " ")
             for (f in rfc822) runCatching { return ZonedDateTime.parse(noWeekday, f).toInstant().toEpochMilli() }
+            // Some local sites (e.g. Точка) write "2026-11-10 11:40:00" with no zone: that is Skopje time.
+            runCatching { return LocalDateTime.parse(s, localDateTime).atZone(SKOPJE).toInstant().toEpochMilli() }
             return null
         }
 
