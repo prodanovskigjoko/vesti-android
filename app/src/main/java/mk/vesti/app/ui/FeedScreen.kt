@@ -73,6 +73,7 @@ fun FeedScreen(
     onLoadMore: () -> Unit,
     cities: List<City>,
     onToggleCity: (City) -> Unit,
+    onOpenWeather: (City) -> Unit,
     /** Hoisted so the scroll position survives opening a story and coming back. */
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -101,7 +102,7 @@ fun FeedScreen(
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
                 item { Header(favoriteCount, onOpenFavorites, onOpenAbout) }
-                item { WidgetsRow(state.widgets, cities, onToggleCity) }
+                item { WidgetsRow(state.widgets, cities, onToggleCity, onOpenWeather) }
                 stickyHeader {
                     TabChips(state.tab) { tab ->
                         onTab(tab)

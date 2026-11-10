@@ -51,7 +51,7 @@ private val CardHeight = 140.dp
 
 /** Weather for each chosen town, fuel prices and exchange rates, side by side above the stories. */
 @Composable
-fun WidgetsRow(widgets: Widgets, cities: List<City>, onToggleCity: (City) -> Unit) {
+fun WidgetsRow(widgets: Widgets, cities: List<City>, onToggleCity: (City) -> Unit, onOpenWeather: (City) -> Unit) {
     var choosing by rememberSaveable { mutableStateOf(false) }
     if (choosing) CityPicker(cities, onToggleCity, onDismiss = { choosing = false })
 
@@ -60,7 +60,7 @@ fun WidgetsRow(widgets: Widgets, cities: List<City>, onToggleCity: (City) -> Uni
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(cities, key = { "w:" + it.name }) { city ->
-            WeatherCard(city.name, widgets.weather.firstOrNull { it.city == city.name }, onClick = { choosing = true })
+            WeatherCard(city.name, widgets.weather.firstOrNull { it.city == city.name }, onClick = { onOpenWeather(city) })
         }
         item(key = "add-city") { AddCityCard(onClick = { choosing = true }) }
         widgets.fuel?.let { fuel -> item { FuelCard(fuel) } }

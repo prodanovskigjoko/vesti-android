@@ -17,6 +17,7 @@ fun VestiApp(vm: NewsViewModel) {
     val state by vm.state.collectAsStateWithLifecycle()
     val favorites by vm.favorites.collectAsStateWithLifecycle()
     val cities by vm.cities.collectAsStateWithLifecycle()
+    val forecast by vm.forecast.collectAsStateWithLifecycle()
     val feedListState = rememberLazyListState()
 
     BackHandler(enabled = state.backStack.isNotEmpty()) { vm.back() }
@@ -43,6 +44,7 @@ fun VestiApp(vm: NewsViewModel) {
                 onLoadMore = vm::loadMore,
                 cities = cities,
                 onToggleCity = vm::toggleCity,
+                onOpenWeather = vm::openWeather,
                 listState = feedListState,
             )
             is Screen.StoryDetail -> StoryScreen(
@@ -59,6 +61,14 @@ fun VestiApp(vm: NewsViewModel) {
                 onBack = vm::back,
             )
             Screen.About -> AboutScreen(onOpen = { vm.open(Screen.Legal(it)) }, onBack = vm::back)
+            is Screen.WeatherDetail -> WeatherScreen(
+                city = screen.city,
+                cities = cities,
+                forecast = forecast,
+                onCity = vm::showWeather,
+                onRetry = { vm.loadForecast(screen.city) },
+                onBack = vm::back,
+            )
             is Screen.Legal -> LegalScreen(screen.document, onBack = vm::back)
         }
     }

@@ -8,6 +8,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 data class Weather(val city: String, val temperature: Int, val min: Int, val max: Int, val code: Int)
 
@@ -18,6 +20,30 @@ data class Rate(val currency: String, val denars: Double)
 data class FuelPrice(val name: String, val price: Double, val unit: String)
 
 data class Fuel(val validFrom: LocalDate, val prices: List<FuelPrice>)
+
+/** The detailed forecast screen: now, the next 24 hours and 7 days. */
+data class Forecast(
+    val city: String,
+    val now: Weather,
+    val feelsLike: Int,
+    val humidity: Int,
+    /** km/h */
+    val wind: Int,
+    val hours: List<HourForecast>,
+    val days: List<DayForecast>,
+)
+
+data class HourForecast(val time: LocalDateTime, val temperature: Int, val code: Int, val rainChance: Int)
+
+data class DayForecast(
+    val date: LocalDate,
+    val max: Int,
+    val min: Int,
+    val code: Int,
+    val rainChance: Int,
+    val sunrise: LocalTime,
+    val sunset: LocalTime,
+)
 
 data class Widgets(
     /** One entry per chosen town that answered; a town that failed simply has no entry. */
@@ -59,6 +85,58 @@ class WidgetsRepository(private val client: OkHttpClient = Http.client) {
             min = Math.round(daily.getJSONArray("temperature_2m_min").getDouble(0)).toInt(),
             max = Math.round(daily.getJSONArray("temperature_2m_max").getDouble(0)).toInt(),
             code = current.getInt("weather_code"),
+        )
+    }
+
+    suspend fun forecast(city: City): Forecast = withContext(Dispatchers.IO) {
+        val url = "https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}" +
+            "&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code" +
+            "&hourly=temperature_2m,weather_code,precipitation_probability" +
+            "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset" +
+            "&timezone=Europe%2FSkopje&forecast_days=7"
+        val json = getJson(url)
+        val current = json.getJSONObject("current")
+        val hourly = json.getJSONObject("hourly")
+        val daily = json.getJSONObject("daily")
+        fun JSONObject.ints(key: String) = getJSONArray(key).let { a -> (0 until a.length()).map { Math.round(a.optDouble(it, 0.0)).toInt() } }
+
+        val hourTimes = hourly.getJSONArray("time").let { a -> (0 until a.length()).map { LocalDateTime.parse(a.getString(it)) } }
+        val hourTemps = hourly.ints("temperature_2m")
+        val hourCodes = hourly.ints("weather_code")
+        val hourRain = hourly.ints("precipitation_probability")
+        val nowTime = LocalDateTime.parse(current.getString("time"))
+        val first = hourTimes.indexOfFirst { !it.isBefore(nowTime.withMinute(0)) }.coerceAtLeast(0)
+        val hours = (first until minOf(first + 24, hourTimes.size)).map {
+            HourForecast(hourTimes[it], hourTemps[it], hourCodes[it], hourRain[it])
+        }
+
+        val dates = daily.getJSONArray("time")
+        val max = daily.ints("temperature_2m_max")
+        val min = daily.ints("temperature_2m_min")
+        val codes = daily.ints("weather_code")
+        val rain = daily.ints("precipitation_probability_max")
+        val days = (0 until dates.length()).map {
+            DayForecast(
+                date = LocalDate.parse(dates.getString(it)),
+                max = max[it], min = min[it], code = codes[it], rainChance = rain[it],
+                sunrise = LocalDateTime.parse(daily.getJSONArray("sunrise").getString(it)).toLocalTime(),
+                sunset = LocalDateTime.parse(daily.getJSONArray("sunset").getString(it)).toLocalTime(),
+            )
+        }
+        Forecast(
+            city = city.name,
+            now = Weather(
+                city = city.name,
+                temperature = Math.round(current.getDouble("temperature_2m")).toInt(),
+                min = days.firstOrNull()?.min ?: 0,
+                max = days.firstOrNull()?.max ?: 0,
+                code = current.getInt("weather_code"),
+            ),
+            feelsLike = Math.round(current.getDouble("apparent_temperature")).toInt(),
+            humidity = current.getInt("relative_humidity_2m"),
+            wind = Math.round(current.getDouble("wind_speed_10m")).toInt(),
+            hours = hours,
+            days = days,
         )
     }
 

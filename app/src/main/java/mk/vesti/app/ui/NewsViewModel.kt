@@ -11,6 +11,7 @@ import mk.vesti.app.data.CitiesRepository
 import mk.vesti.app.data.City
 import mk.vesti.app.data.NewsRepository
 import mk.vesti.app.data.FavoritesRepository
+import mk.vesti.app.data.Forecast
 import mk.vesti.app.data.Widgets
 import mk.vesti.app.data.WidgetsRepository
 import mk.vesti.core.Category
@@ -42,6 +43,7 @@ sealed interface Screen {
     data class StoryDetail(val story: Story) : Screen
     data object Favorites : Screen
     data object About : Screen
+    data class WeatherDetail(val city: City) : Screen
     data class Legal(val document: LegalDocument) : Screen
 }
 
@@ -149,6 +151,28 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun toggleFavorite(source: String) = favoritesRepository.toggle(source)
+
+    /** Null while loading; a failure is kept so the screen can offer a retry. */
+    private val _forecast = MutableStateFlow<Result<Forecast>?>(null)
+    val forecast: StateFlow<Result<Forecast>?> = _forecast
+
+    fun openWeather(city: City) {
+        open(Screen.WeatherDetail(city))
+        loadForecast(city)
+    }
+
+    fun loadForecast(city: City) {
+        _forecast.value = null
+        viewModelScope.launch {
+            _forecast.value = runCatching { widgetsRepository.forecast(city) }
+        }
+    }
+
+    /** Switches the open forecast to another chosen town without stacking screens. */
+    fun showWeather(city: City) {
+        _state.update { it.copy(backStack = it.backStack.dropLast(1) + Screen.WeatherDetail(city)) }
+        loadForecast(city)
+    }
 
     fun toggleCity(city: City) {
         citiesRepository.toggle(city)
