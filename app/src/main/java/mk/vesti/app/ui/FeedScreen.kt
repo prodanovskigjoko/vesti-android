@@ -56,6 +56,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import mk.vesti.app.data.City
 import mk.vesti.app.ui.theme.accent
 import mk.vesti.core.Story
 
@@ -70,6 +71,8 @@ fun FeedScreen(
     onOpenFavorites: () -> Unit,
     onOpenAbout: () -> Unit,
     onLoadMore: () -> Unit,
+    cities: List<City>,
+    onToggleCity: (City) -> Unit,
     /** Hoisted so the scroll position survives opening a story and coming back. */
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -98,7 +101,7 @@ fun FeedScreen(
                 modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             ) {
                 item { Header(favoriteCount, onOpenFavorites, onOpenAbout) }
-                item { WidgetsRow(state.widgets) }
+                item { WidgetsRow(state.widgets, cities, onToggleCity) }
                 stickyHeader {
                     TabChips(state.tab) { tab ->
                         onTab(tab)

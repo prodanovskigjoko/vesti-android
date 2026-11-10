@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 fun VestiApp(vm: NewsViewModel) {
     val state by vm.state.collectAsStateWithLifecycle()
     val favorites by vm.favorites.collectAsStateWithLifecycle()
+    val cities by vm.cities.collectAsStateWithLifecycle()
     val feedListState = rememberLazyListState()
 
     BackHandler(enabled = state.backStack.isNotEmpty()) { vm.back() }
@@ -40,6 +41,8 @@ fun VestiApp(vm: NewsViewModel) {
                 onOpenFavorites = { vm.open(Screen.Favorites) },
                 onOpenAbout = { vm.open(Screen.About) },
                 onLoadMore = vm::loadMore,
+                cities = cities,
+                onToggleCity = vm::toggleCity,
                 listState = feedListState,
             )
             is Screen.StoryDetail -> StoryScreen(

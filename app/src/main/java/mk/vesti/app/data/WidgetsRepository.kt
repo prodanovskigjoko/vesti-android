@@ -20,7 +20,8 @@ data class FuelPrice(val name: String, val price: Double, val unit: String)
 data class Fuel(val validFrom: LocalDate, val prices: List<FuelPrice>)
 
 data class Widgets(
-    val weather: Weather? = null,
+    /** One entry per chosen town that answered; a town that failed simply has no entry. */
+    val weather: List<Weather> = emptyList(),
     val rates: List<Rate> = emptyList(),
     val fuel: Fuel? = null,
 )
@@ -28,25 +29,32 @@ data class Widgets(
 /** Data for the cards above the feed. Each card loads on its own, so one failing service hides only its card. */
 class WidgetsRepository(private val client: OkHttpClient = Http.client) {
 
-    suspend fun load(): Widgets = withContext(Dispatchers.IO) {
+    suspend fun load(cities: List<City>): Widgets = withContext(Dispatchers.IO) {
         coroutineScope {
-            val weather = async { runCatching { weather() }.getOrNull() }
+            val weather = async { weather(cities) }
             val rates = async { runCatching { rates() }.getOrDefault(emptyList()) }
             val fuel = async { runCatching { fuel() }.getOrNull() }
             Widgets(weather = weather.await(), rates = rates.await(), fuel = fuel.await())
         }
     }
 
+    /** Each town in parallel; a town that fails is left out. */
+    suspend fun weather(cities: List<City>): List<Weather> = withContext(Dispatchers.IO) {
+        coroutineScope {
+            cities.map { async { runCatching { weather(it) }.getOrNull() } }.mapNotNull { it.await() }
+        }
+    }
+
     /** Open-Meteo: free and keyless. */
-    private fun weather(): Weather {
-        val url = "https://api.open-meteo.com/v1/forecast?latitude=41.9981&longitude=21.4254" +
+    private fun weather(city: City): Weather {
+        val url = "https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}" +
             "&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min" +
             "&timezone=Europe%2FSkopje&forecast_days=1"
         val json = getJson(url)
         val current = json.getJSONObject("current")
         val daily = json.getJSONObject("daily")
         return Weather(
-            city = "Скопје",
+            city = city.name,
             temperature = Math.round(current.getDouble("temperature_2m")).toInt(),
             min = Math.round(daily.getJSONArray("temperature_2m_min").getDouble(0)).toInt(),
             max = Math.round(daily.getJSONArray("temperature_2m_max").getDouble(0)).toInt(),

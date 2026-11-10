@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import mk.vesti.app.data.CitiesRepository
+import mk.vesti.app.data.City
 import mk.vesti.app.data.NewsRepository
 import mk.vesti.app.data.FavoritesRepository
 import mk.vesti.app.data.Widgets
@@ -80,6 +82,8 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
     private val repository = NewsRepository(app)
     private val favoritesRepository = FavoritesRepository(app)
     private val widgetsRepository = WidgetsRepository()
+    private val citiesRepository = CitiesRepository(app)
+    val cities: StateFlow<List<City>> = citiesRepository.selected
     val favorites: StateFlow<Set<String>> = favoritesRepository.sources
 
     private val _state = MutableStateFlow(NewsUiState(loading = true))
@@ -100,7 +104,7 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
         if (_state.value.loading && !force) return
         _state.update { it.copy(loading = true, error = null) }
         viewModelScope.launch {
-            val widgets = widgetsRepository.load()
+            val widgets = widgetsRepository.load(cities.value)
             _state.update { it.copy(widgets = widgets) }
         }
         viewModelScope.launch {
@@ -145,4 +149,12 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun toggleFavorite(source: String) = favoritesRepository.toggle(source)
+
+    fun toggleCity(city: City) {
+        citiesRepository.toggle(city)
+        viewModelScope.launch {
+            val weather = widgetsRepository.weather(cities.value)
+            _state.update { it.copy(widgets = it.widgets.copy(weather = weather)) }
+        }
+    }
 }
