@@ -98,7 +98,7 @@ class RssParser {
                 summary = stripHtml(raw).take(500),
                 imageUrl = imageUrl ?: firstImage(raw),
                 source = source.name,
-                category = source.category ?: Categorizer.fromLabels(categories) ?: Category.MAKEDONIJA,
+                category = source.category ?: Categorizer.categorize(categories, t, stripHtml(raw)),
                 publishedAt = date ?: 0L,
             )
         }

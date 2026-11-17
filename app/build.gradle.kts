@@ -14,8 +14,8 @@ android {
         applicationId = "mk.vesti.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 5
-        versionName = "0.1.4"
+        versionCode = 6
+        versionName = "0.1.5"
     }
 
     // Upload key for Play: keystore.properties (not in git) next to this repo's root, e.g.
