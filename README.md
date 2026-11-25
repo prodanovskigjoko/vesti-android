@@ -48,6 +48,13 @@
    ```
 3. `./gradlew :app:bundleRelease` → `app/build/outputs/bundle/release/app-release.aab`.
    Пред секое ново издание зголеми `versionCode` во `app/build.gradle.kts`.
-4. Политика и услови на јавен линк: GitHub → Settings → Pages → Branch `main`, папка `/docs`.
+4. **Автоматски (CI/CD):** `git tag v0.1.6 && git push origin v0.1.6` → GitHub Actions (`release.yml`)
+   пушта тестови, гради потпишан AAB и го качува на **internal testing** track.
+   Верзијата се зема од tag-от: `v1.2.3` → versionName `1.2.3`, versionCode `10203`.
+   Потребни GitHub secrets (Settings → Secrets and variables → Actions):
+   `KEYSTORE_BASE64` (`base64 -w0 vesti-upload.jks`), `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`,
+   `PLAY_SERVICE_ACCOUNT_JSON` (JSON клуч од service account со пристап во Play Console).
+   Додека апликацијата не е објавена ниту еднаш, Google прифаќа само draft: стави variable `PLAY_RELEASE_STATUS=draft`.
+5. Политика и услови на јавен линк: GitHub → Settings → Pages → Branch `main`, папка `/docs`.
    Линкови: `https://prodanovskigjoko.github.io/vesti-android/privacy.html` и `.../terms.html`.
    По промена на `LegalTexts.kt` изврши `python3 tools/legal_pages.py` за да се обноват страниците.
