@@ -1,0 +1,43 @@
+name: Promote to production
+
+# Actions tab -> "Promote to production" -> Run workflow.
+# Takes the newest build on the internal track and releases it to production (no rebuild).
+on:
+  workflow_dispatch:
+    inputs:
+      rollout:
+        description: 'Share of users (0.1 = 10%, 1 = everyone)'
+        required: true
+        default: '1'
+      from_track:
+        description: 'Source track'
+        required: true
+        default: 'internal'
+        type: choice
+        options: [internal, alpha, beta]
+
+concurrency:
+  group: play-release
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    environment: production   # add required reviewers on this environment for an extra approval step
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install google-api-python-client google-auth
+
+      - name: Promote ${{ inputs.from_track }} -> production
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          FROM_TRACK: ${{ inputs.from_track }}
+          ROLLOUT: ${{ inputs.rollout }}
+        run: >
+          python tools/promote.py --package mk.vesti.app
+          --from "$FROM_TRACK" --to production --rollout "$ROLLOUT"
