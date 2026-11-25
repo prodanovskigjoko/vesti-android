@@ -2,10 +2,16 @@ name: Release to Google Play (internal)
 
 # Push a tag such as v0.1.6 to build a signed AAB and upload it to the internal testing track:
 #   git tag v0.1.6 && git push origin v0.1.6
+# Run it by hand (Actions -> Run workflow) for a test: it builds and signs, but does NOT upload to Play.
 on:
   push:
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version for the test build, e.g. 0.1.6 (nothing is uploaded to Play)'
+        required: true
+        default: '0.0.1'
 
 concurrency:
   group: play-release
@@ -25,10 +31,12 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Version from tag (v1.2.3 -> versionName 1.2.3, versionCode 10203)
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then TAG="$INPUT_VERSION"; else TAG="${GITHUB_REF_NAME#v}"; fi
           if [[ ! "$TAG" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
-            echo "::error::Tag must look like v1.2.3, got '$GITHUB_REF_NAME'"; exit 1
+            echo "::error::Version must look like 1.2.3 (tag v1.2.3), got '$TAG'"; exit 1
           fi
           CODE=$(( BASH_REMATCH[1] * 10000 + BASH_REMATCH[2] * 100 + BASH_REMATCH[3] ))
           echo "VERSION_NAME=$TAG" >> "$GITHUB_ENV"
@@ -63,6 +71,7 @@ jobs:
           path: app/build/outputs/bundle/release/app-release.aab
 
       - name: Upload to Google Play internal testing
+        if: github.event_name == 'push'
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
