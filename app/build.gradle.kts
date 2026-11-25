@@ -14,8 +14,9 @@ android {
         applicationId = "mk.vesti.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 6
-        versionName = "0.1.5"
+        // CI (release.yml) sets these from the git tag; locally the defaults below are used.
+        versionCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 6
+        versionName = System.getenv("VERSION_NAME") ?: "0.1.5"
     }
 
     // Upload key for Play: keystore.properties (not in git) next to this repo's root, e.g.
@@ -23,7 +24,9 @@ android {
     //   storePassword=…
     //   keyAlias=upload
     //   keyPassword=…
+    // On CI the same values come from environment variables (GitHub secrets), see release.yml.
     val keystoreFile = rootProject.file("keystore.properties")
+    val ciKeystore = System.getenv("KEYSTORE_FILE")
     signingConfigs {
         if (keystoreFile.exists()) {
             val props = Properties().apply { keystoreFile.inputStream().use(::load) }
@@ -32,6 +35,13 @@ android {
                 storePassword = props.getProperty("storePassword")
                 keyAlias = props.getProperty("keyAlias")
                 keyPassword = props.getProperty("keyPassword")
+            }
+        } else if (ciKeystore != null) {
+            create("release") {
+                storeFile = file(ciKeystore)
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
             }
         }
     }
