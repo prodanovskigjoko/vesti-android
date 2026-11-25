@@ -55,9 +55,6 @@
    `KEYSTORE_BASE64` (`base64 -w0 vesti-upload.jks`), `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`,
    `PLAY_SERVICE_ACCOUNT_JSON` (JSON клуч од service account со пристап во Play Console).
    Додека апликацијата не е објавена ниту еднаш, Google прифаќа само draft: стави variable `PLAY_RELEASE_STATUS=draft`.
-5. **Production:** Actions → „Promote to production“ → Run workflow. Најновиот build од internal оди во
-   production без нов build (`tools/promote.py`). `rollout` = дел од корисниците (0.1 = 10%, 1 = сите).
-   Google review и понатаму важи.
-6. Политика и услови на јавен линк: GitHub → Settings → Pages → Branch `main`, папка `/docs`.
+5. Политика и услови на јавен линк: GitHub → Settings → Pages → Branch `main`, папка `/docs`.
    Линкови: `https://prodanovskigjoko.github.io/vesti-android/privacy.html` и `.../terms.html`.
    По промена на `LegalTexts.kt` изврши `python3 tools/legal_pages.py` за да се обноват страниците.
